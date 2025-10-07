@@ -1,0 +1,64 @@
+/* style.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+}
+
+nav {
+    background-color: #333;
+    padding: 10px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+nav ul li {
+        flex-grow: 1; 
+       text-align: center;
+}
+
+nav ul li.role-menu {
+    flex-grow: 0; 
+    margin-left: auto; 
+    text-align: right;
+    padding-left: 10px; 
+}
+
+nav ul li a,
+nav ul li button {
+    color: white;
+    text-decoration: none;
+    background: none;
+    border: none;
+     padding: 10px 15px; 
+    cursor: pointer;
+    font-size: 16px;
+    display: block; 
+}
+
+nav ul li a:hover,
+nav ul li button:hover,
+.role-menu button:hover { 
+    background-color: #555;
+}
+
+.role-menu button {
+    display: flex; 
+    align-items: center;
+    justify-content: flex-end; 
+
+}
+
+.role-menu button span.role-text {
+    margin-left: 5px;
+}
+
+
+main {
+    padding: 20px;
+}

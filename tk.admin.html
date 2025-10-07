@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Trang quản trị Admin</title>
+  <link rel="stylesheet" href="css/style_admin.css">
  </head>
 <body>
   <nav>
@@ -12,12 +13,16 @@
       <li><a href="manage_orders.html">Quản lý đơn hàng</a></li>
       <li><a href="manage_users.html">Quản lý người dùng</a></li>
       <li><button onclick="logout()">Đăng xuất</button></li>
+      <li class="role-menu">
+            <button title="Vai trò người dùng">
+                <span aria-hidden="true">&#128100;</span> 
+                <span class="role-text" id="userRoleInNav">ADMIN</span> 
+            </button>
     </ul>
   </nav>
 
   <main>
     <h1>Chào mừng Admin!</h1>
-    <p>Vai trò: <strong>ADMIN</strong></p>
   </main>
 <script src="js/admin.js"></script>
 </body>

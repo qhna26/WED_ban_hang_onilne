@@ -4,7 +4,7 @@ if (role !== "CUSTOMER") {
   window.location.href = "login.html";
 }
 
-document.getElementById("roleDisplay").textContent = "Khách hàng";
+
 
 function logout() {
   sessionStorage.clear();

@@ -4,7 +4,7 @@ if (role !== "STAFF") {
   window.location.href = "login.html";
 }
 
-document.getElementById("roleDisplay").textContent = "Nhân Viên";
+
 
 function logout() {
   sessionStorage.clear();

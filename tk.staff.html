@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Trang chủ</title>
+<link rel="stylesheet" href="/css/stylenv,kh.css">
 </head>
 <body>
   <nav>
@@ -13,13 +14,18 @@
       <li><a href="cart.html">Giỏ hàng</a></li>
       <li><a href="checkout.html">Thanh toán</a></li>
       <li><button onclick="logout()">Đăng xuất</button></li>
+      <li class="role-menu">
+            <button title="Vai trò người dùng">
+                <span aria-hidden="true">&#128100;</span> 
+                <span class="role-text" id="userRoleInNav">Nhân viên</span> 
+            </button>
+        </li>
     </ul>
   </nav>
 
   <main>
     <h1>Chào mừng bạn đến với cửa hàng!</h1>
-    <p>Vai trò: <strong id="roleDisplay"></strong></p>
-  </main>
+    </main>
   <script src="js/staff.js"></script>
 </body>
 </html>

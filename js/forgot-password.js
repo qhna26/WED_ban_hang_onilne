@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const message = document.getElementById("forgotMessage");
   const submitBtn = form.querySelector("button");
 
+
   let step = 1;
   let email = "";
 

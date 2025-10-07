@@ -2,6 +2,8 @@
 const express = require("express");
 const cors = require("cors");
 const nodemailer = require("nodemailer");
+const fs = require("fs");
+const path = require("path");
 
 const app = express();
 const PORT = 4000;
@@ -9,14 +11,22 @@ const PORT = 4000;
 // Cho phép gọi API từ Live Server (5500)
 app.use(cors({
   origin: ["http://127.0.0.1:5500", "http://localhost:5500"],
-  methods: ["GET", "POST"],
-  allowedHeaders: ["Content-Type"],
+  methods: ["GET", "POST", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
 }));
 
 app.use(express.json());
 
 // Lưu OTP tạm thời (RAM)
 let otpStore = {};
+
+//Hàm đọc file template rồi chèn OTP vào
+function getEmailTemplate(otp) {
+  const htmlPath = path.join(__dirname, "../template-email.html");
+  let html = fs.readFileSync(htmlPath, "utf8");
+  html = html.replace("{{OTP}}", otp);
+  return html;
+}
 
 // Gửi OTP qua Gmail
 app.post("/forgot-password", async (req, res) => {
@@ -31,17 +41,22 @@ app.post("/forgot-password", async (req, res) => {
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: "quannhatb01680@gmail.com", // Gmail thật của bạn
-      pass: "ftec jmka lavx bvkf", // App Password (16 ký tự)
+      // user: "quannhatb01680@gmail.com", 
+      // pass: "ftec jmka lavx bvkf",      
+          user: "cuongdqtb01697@gmail.com",
+          pass: "bfca kctu zsdn aqyd",
     },
   });
 
   try {
+    // Tạo nội dung HTML từ template
+    const htmlContent = getEmailTemplate(otp);
+
     await transporter.sendMail({
       from: '"Shop Online" <quannhatb01680@gmail.com>',
       to: email,
       subject: "Mã OTP khôi phục mật khẩu",
-      text: `Mã OTP của bạn là: ${otp}`,
+      html: htmlContent, 
     });
 
     res.json({ status: "ok", message: "Đã gửi OTP tới email!" });
@@ -51,7 +66,7 @@ app.post("/forgot-password", async (req, res) => {
   }
 });
 
-// Xác minh OTP
+//Xác minh OTP
 app.post("/verify-otp", (req, res) => {
   const { email, otp } = req.body;
   if (!email || !otp)

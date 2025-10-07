@@ -2,11 +2,18 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const nodemailer = require("nodemailer");
 const cors = require("cors");
-
+const fs = require("fs");
+const path = require("path");
 const app = express();
-app.use(cors());
+
+app.use(cors({
+  origin: ["http://127.0.0.1:5500", "http://localhost:5500"],
+  methods: ["GET", "POST", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+}));
+
 app.use(bodyParser.json());
-app.use(express.static("public")); // chỉ để 1 lần ở đây
+app.use(express.static("public"));
 
 const users = {};
 
@@ -14,16 +21,27 @@ const users = {};
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: "quannhatb01680@gmail.com",
-    pass: "ftec jmka lavx bvkf", // App password Gmail
+    user: "cuongdqtb01697@gmail.com",
+    pass: "bfca kctu zsdn aqyd",
   },
 });
 
+//Hàm tạo OTP
 function generateOtp() {
   return Math.floor(100000 + Math.random() * 900000).toString();
 }
 
-// Register
+//Hàm đọc template email 
+function getEmailTemplate(otp) {
+  const htmlPath = path.join(__dirname, "../template-email.html");
+  let html = fs.readFileSync(htmlPath, "utf8");
+  html = html.replace("{{OTP}}", otp);
+
+  return html;
+}
+
+
+// API Register
 app.post("/register", async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
@@ -38,11 +56,14 @@ app.post("/register", async (req, res) => {
   users[email] = { password, otp, expire, active: false };
 
   try {
+    //Tạo nội dung HTML có CSS và OTP
+    const htmlContent = getEmailTemplate(otp);
+
     await transporter.sendMail({
       from: "Shop Online <quannhatb01680@gmail.com>",
       to: email,
       subject: "Mã OTP xác thực tài khoản",
-      text: `Mã OTP của bạn là: ${otp}\nCó hiệu lực trong 5 phút.`,
+      html: htmlContent, 
     });
 
     res.json({ status: "ok", message: "Đã gửi OTP về email!" });
@@ -51,7 +72,6 @@ app.post("/register", async (req, res) => {
   }
 });
 
-// Verify
 app.post("/verify", (req, res) => {
   const { email, otp } = req.body;
   if (!users[email]) return res.json({ status: "fail", message: "Email chưa đăng ký!" });
@@ -68,7 +88,6 @@ app.post("/verify", (req, res) => {
   }
 });
 
-// Login
 app.post("/login", (req, res) => {
   const { email, password } = req.body;
   if (!users[email]) return res.json({ status: "fail", message: "Email không tồn tại!" });

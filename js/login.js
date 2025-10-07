@@ -16,10 +16,12 @@ document.getElementById("loginForm").addEventListener("submit", function(e){
 
     // Chuyển hướng theo role
     if(users[username].role === "ADMIN"){
-      window.location.href = "admin_home.html"; // admin
-    } else {
-      window.location.href = "home.html"; // Nhân viên & Khách Hàng
-    }
+  window.location.href = "tk.admin.html";
+ } else if(users[username].role === "STAFF"){
+  window.location.href = "tk.staff.html";
+ } else if(users[username].role === "CUSTOMER"){
+  window.location.href = "tk.customer.html";
+ }
   } else {
     msg.textContent = "Tên đăng nhập hoặc mật khẩu không đúng!";
     msg.style.color = "red";

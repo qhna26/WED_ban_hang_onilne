@@ -2,12 +2,24 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Trang chủ khách hàng</title>
+  <title>Trang chủ</title>
 </head>
 <body>
-  <h1>Chào mừng khách hàng!</h1>
-  <button onclick="logout()">Đăng xuất</button>
+  <nav>
+    <ul>
+      <li><a href="home.html">Trang chủ</a></li>
+      <li><a href="products.html">Sản phẩm</a></li>
+      <li><a href="product_detail.html">Chi tiết sản phẩm</a></li>
+      <li><a href="cart.html">Giỏ hàng</a></li>
+      <li><a href="checkout.html">Thanh toán</a></li>
+      <li><button onclick="logout()">Đăng xuất</button></li>
+    </ul>
+  </nav>
 
-  <script src="js/customer.js"></script>
+  <main>
+    <h1>Chào mừng bạn đến với cửa hàng!</h1>
+    <p>Vai trò: <strong id="roleDisplay"></strong></p>
+  </main>
+<script src="js/customer.js"></script>
 </body>
 </html>

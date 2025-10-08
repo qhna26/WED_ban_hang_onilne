@@ -1,64 +1,142 @@
-/* style.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    font-family: "Poppins", sans-serif;
     margin: 0;
+    color: #fff;
+    overflow: hidden; 
+    background: #000;
+    height: 100vh;
+}
+
+#bgCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    filter: brightness(0.7) contrast(1.5) blur(50px); 
+    transition: filter 1s ease;
+}
+
+.bg-gradient {
+    display: none; 
 }
 
 nav {
-    background-color: #333;
-    padding: 10px;
+    position: relative;
+    z-index: 10; 
+    padding: 20px 50px;
+    display: flex;
+    justify-content: flex-end;
 }
 
 nav ul {
     list-style: none;
     display: flex;
-    align-items: center;
+    gap: 30px;
     margin: 0;
     padding: 0;
 }
-nav ul li {
-        flex-grow: 1; 
-       text-align: center;
-}
 
-nav ul li.role-menu {
-    flex-grow: 0; 
-    margin-left: auto; 
-    text-align: right;
-    padding-left: 10px; 
-}
-
-nav ul li a,
-nav ul li button {
-    color: white;
-    text-decoration: none;
-    background: none;
+nav a, nav button {
+    color: #fff;
+    background: transparent;
     border: none;
-     padding: 10px 15px; 
+    font-size: 14px; 
     cursor: pointer;
-    font-size: 16px;
-    display: block; 
+    text-decoration: none;
+    padding: 5px 10px;
+    font-weight: 500;
+    position: relative;
+    display: inline-block;
+    transition: color 0.3s;
 }
 
-nav ul li a:hover,
-nav ul li button:hover,
-.role-menu button:hover { 
-    background-color: #555;
+nav a:hover, nav button:hover {
+    color: #00ffc8;
 }
 
-.role-menu button {
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0; 
+    left: 0;
+    width: 100%;
+    height: 1.5px; 
+    background-color: #00ffc8;
+    transform: scaleX(0); 
+    transform-origin: bottom left; 
+    transition: transform 0.4s ease-out;
+}
+
+nav a:hover::after {
+    transform: scaleX(1); 
+}
+
+nav button {
+    border: 1.5px solid #fff;
+    border-radius: 20px;
+    padding: 5px 15px;
+    transition: all 0.3s;
+}
+nav button:hover {
+    border-color: #00ffc8;
+    color: #00ffc8;
+}
+
+main.hero {
+    position: absolute; 
+    z-index: 5;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 1400px;
     display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 0 40px;
+    height: 60vh;
+}
+
+.hero-left {
+    max-width: 50%; 
+}
+
+.hero h1 {
+    font-size: 4.5vw; 
+    font-weight: 700; 
+    margin-bottom: 20px;
+    line-height: 1.1;
+}
+
+.hero p {
+    font-size: 16px;
+    color: #ccc;
+    max-width: 500px; 
+    line-height: 1.6;
+    margin-top: 0;
+}
+
+.logo-right {
+    max-width: 40%;
+    display: flex;
+    justify-content: center;
     align-items: center;
-    justify-content: flex-end; 
-
+    position: static; 
+    padding-left: 0;
 }
 
-.role-menu button span.role-text {
-    margin-left: 5px;
+.logo-right img {
+    width: 90vw;
+    min-width: 1200px; 
+    height: auto;
+    filter: drop-shadow(0 0 15px rgba(0, 255, 255, 0.6))
+            drop-shadow(0 0 30px rgba(0, 255, 255, 0.3));
 }
 
-
-main {
-    padding: 20px;
+.logo-section::after, .formless-logo {
+    display: none;
 }

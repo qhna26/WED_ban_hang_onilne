@@ -1,31 +1,43 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <title>Trang chủ</title>
-  <link rel="stylesheet" href="/css/style_nv,kh.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Admin</title>
+    <link rel="stylesheet" href="css/style_nv,kh.css">
 </head>
 <body>
-  <nav>
-    <ul>
-      <li><a href="home.html">Trang chủ</a></li>
-      <li><a href="products.html">Sản phẩm</a></li>
-      <li><a href="product_detail.html">Chi tiết sản phẩm</a></li>
-      <li><a href="cart.html">Giỏ hàng</a></li>
-      <li><a href="checkout.html">Thanh toán</a></li>
-      <li><button onclick="logout()">Đăng xuất</button></li>
-      <li class="role-menu">
-            <button title="Vai trò người dùng">
-                <span aria-hidden="true">&#128100;</span> 
-                <span class="role-text" id="userRoleInNav">Khách hàng</span> 
-            </button>
-        </li>
-    </ul>
-  </nav>
+    <canvas id="bgCanvas"></canvas>
 
-  <main>
-    <h1>Chào mừng bạn đến với cửa hàng!</h1>
-   </main>
-<script src="js/customer.js"></script>
+    <nav>
+        <ul>
+            <li><a href="home.html">Trang chủ</a></li>
+            <li><a href="products.html">Sản phẩm</a></li>
+            <li><a href="product_detail.html">Chi tiết sản phẩm</a></li>
+            <li><a href="cart.html">Giỏ hàng</a></li>
+            <li><a href="checkout.html">Thanh toán</a></li>
+            <li><button onclick="logout()">Đăng xuất</button></li>
+            <li class="role-menu">
+                <button title="Vai trò người dùng">
+                    <span aria-hidden="true">&#128100;</span> 
+                    <span class="role-text" id="userRoleInNav">Admin</span> 
+                </button>
+            </li>
+        </ul>
+    </nav>
+
+    <main class="hero">
+        <div class="hero-left">
+            <h1>Chào mừng bạn đến với trang web của chúng tôi</h1>
+            <p>ở đây bán các sản phẩm liên quan đến thể thao bao gồm: áo đá bóng, áo bóng rổ, dụng cụ thể dục thể thao, ... Nơi đây cung cấp những gì bạn cần liên quan đến thể thao.</p>
+        </div>
+        
+        <div class="logo-right">
+            <img src="./images/Thiết kế chưa có tên.png" alt="Logo TTN">
+        </div>
+    </main>
+
+    <script src="js/customer.js"></script>
+    <script src="js/slider.js"></script>
 </body>
 </html>

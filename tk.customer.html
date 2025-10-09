@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trang Admin</title>
+    <title>Trang Khách Hàng</title>
     <link rel="stylesheet" href="css/style_nv,kh.css">
 </head>
 <body>
@@ -20,7 +20,7 @@
             <li class="role-menu">
                 <button title="Vai trò người dùng">
                     <span aria-hidden="true">&#128100;</span> 
-                    <span class="role-text" id="userRoleInNav">Admin</span> 
+                    <span class="role-text" id="userRoleInNav">Khách hàng</span> 
                 </button>
             </li>
         </ul>
@@ -29,7 +29,7 @@
     <main class="hero">
         <div class="hero-left">
             <h1>Chào mừng bạn đến với trang web của chúng tôi</h1>
-            <p>ở đây bán các sản phẩm liên quan đến thể thao bao gồm: áo đá bóng, áo bóng rổ, dụng cụ thể dục thể thao, ... Nơi đây cung cấp những gì bạn cần liên quan đến thể thao.</p>
+            <p>Ở đây bán các sản phẩm thể thao: áo đá bóng, áo bóng rổ, dụng cụ tập luyện,... Cung cấp những gì bạn cần!</p>
         </div>
         
         <div class="logo-right">
@@ -37,7 +37,33 @@
         </div>
     </main>
 
+    <!-- 🟨 PHẦN SẢN PHẨM NỔI BẬT -->
+    <section class="featured-products scroll-animate">
+        <h2>Sản phẩm nổi bật</h2>
+        <div class="product-list">
+            <div class="product-card">
+                <img src="./images/ao-bong-da.jpg" alt="Áo bóng đá">
+                <h3>Áo bóng đá</h3>
+                <p>Thiết kế thoáng mát, chất liệu cao cấp.</p>
+                <button class="requires-login">Mua ngay</button>
+            </div>
+            <div class="product-card">
+                <img src="./images/giay-the-thao.jpg" alt="Giày thể thao">
+                <h3>Giày thể thao</h3>
+                <p>Bền, nhẹ, hỗ trợ tập luyện hiệu quả.</p>
+                <button class="requires-login">Mua ngay</button>
+            </div>
+            <div class="product-card">
+                <img src="./images/dung-cu-tap.jpg" alt="Dụng cụ tập">
+                <h3>Dụng cụ tập</h3>
+                <p>Đầy đủ phụ kiện tập gym tại nhà.</p>
+                <button class="requires-login">Mua ngay</button>
+            </div>
+        </div>
+    </section>
+
     <script src="js/customer.js"></script>
     <script src="js/slider.js"></script>
+    <script src="js/scroll-animate.js"></script>
 </body>
 </html>

@@ -1,4 +1,3 @@
-// Hiệu ứng scroll fade nhẹ 0.4s - lặp lại khi cuộn
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {

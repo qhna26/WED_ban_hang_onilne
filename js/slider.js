@@ -32,9 +32,9 @@ if (canvas) {
                 x: mouse.x,
                 y: mouse.y,
                 r: 8,
-                maxR: 220,        // sóng lan xa hơn
+                maxR: 220,       
                 alpha: 1,
-                tail: Math.random() * 0.4 + 0.3  // độ dài đuôi ngẫu nhiên
+                tail: Math.random() * 0.4 + 0.3  
             });
         }
     });
@@ -60,7 +60,6 @@ if (canvas) {
         for (let i = 0; i < waves.length; i++) {
             const w = waves[i];
 
-            // Vẽ vòng sáng chính (sóng tròn)
             ctx.beginPath();
             ctx.arc(w.x, w.y, w.r, 0, Math.PI * 2);
 
@@ -70,8 +69,6 @@ if (canvas) {
             ctx.shadowBlur = 20;
             ctx.shadowColor = `rgba(0, 255, 255, ${w.alpha})`;
             ctx.stroke();
-
-            // Vẽ phần đuôi mờ kéo dài để tạo hiệu ứng ảo diệu
             ctx.beginPath();
             ctx.arc(w.x, w.y, w.r * (1 + w.tail), 0, Math.PI * 2);
             ctx.strokeStyle = `rgba(255, 255, 255, ${w.alpha * 0.15})`;
@@ -79,7 +76,7 @@ if (canvas) {
             ctx.shadowBlur = 0;
             ctx.stroke();
 
-            w.r += 3;  // tốc độ lan nhẹ hơn để đuôi rõ hơn
+            w.r += 3; 
 
             if (w.r > w.maxR || w.alpha < 0.03) {
                 waves.splice(i, 1);

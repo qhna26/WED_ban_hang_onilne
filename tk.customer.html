@@ -1,134 +1,127 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trang Khách Hàng</title>
-    <link rel="stylesheet" href="css/style_nv,kh.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TTN SPORT - Khách hàng</title>
+  <link rel="stylesheet" href="css/style_nv,kh.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-    <canvas id="bgCanvas"></canvas>
+  <canvas id="bgCanvas"></canvas>
 
-    <nav>
+  <nav>
     <ul>
-        <li><a href="home.html">Trang chủ</a></li>
-        <li><a href="products.html">Sản phẩm</a></li>
-        <li><a href="product_detail.html">Chi tiết sản phẩm</a></li>
-        <li><a href="cart.html">Giỏ hàng</a></li>
-        <li id="logoutItem" style="display: none;">
-            <button onclick="logout()">Đăng xuất</button>
-        </li>
-        <li class="role-menu">
-  <button id="userInfoBtn" title="Vai trò người dùng">
-    <span aria-hidden="true">&#128100;</span>
-    <span class="role-text" id="userRoleInNav">Khách (chưa đăng nhập)</span>
-  </button>
-</li>
+      <li><a href="#" id="homeLink">Trang chủ</a></li>
+      <li><a href="products.html">Sản phẩm</a></li>
+      <li><a href="product_detail.html">Chi tiết sản phẩm</a></li>
+      <li><a href="cart.html">Giỏ hàng</a></li>
+      <li id="logoutItem" style="display:none;"><button onclick="logout()">Đăng xuất</button></li>
+      <li class="role-menu">
+        <button id="userInfoBtn" title="Vai trò người dùng">
+          <span aria-hidden="true">&#128100;</span>
+          <span class="role-text" id="userRoleInNav">Khách (chưa đăng nhập)</span>
+        </button>
+      </li>
     </ul>
-</nav>
+  </nav>
 
+  <main id="content-area"></main>
 
-    <main class="hero">
-        <div class="hero-left">
-            <h1>Chào mừng bạn đến với trang web của chúng tôi</h1>
-            <p>Ở đây chúng tôi cung cấp đa dạng các sản phẩm thể thao như áo đá bóng, áo bóng rổ, giày và dụng cụ tập luyện, mang đến cho bạn sự thoải mái, phong cách và tự tin trong mỗi buổi tập luyện hay thi đấu.</p>
-        </div>
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <img src="./images/Thiết kế chưa có tên.png" alt="Logo TTN">
+        <h2>TTN SPORT™</h2>
+      </div>
+
+      <div class="footer-links">
+        <a href="#">Developers & Companies</a>
+        <a href="#">Creators</a>
+        <a href="#">About Us</a>
+        <a href="#">Contact</a>
+      </div>
+
+      <div class="footer-socials">
+        <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#"><i class="fa-brands fa-discord"></i></a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© TTN SPORT</p>
+      <div>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/checkRole.js"></script>
+  <script src="js/auth.js"></script> 
+  
+  <script>
+    // === TẢI TRANG CHỦ MẶC ĐỊNH ===
+    document.addEventListener("DOMContentLoaded", () => {
+      loadPage("pages/home.html");
+    });
+
+    document.getElementById("homeLink").addEventListener("click", (e) => {
+      e.preventDefault();
+      loadPage("pages/home.html");
+    });
+
+    // === HÀM LOAD PAGE VÀ KÍCH HOẠT JS ===
+    function loadPage(page) {
+      fetch(page)
+        .then(res => res.text())
+        .then(html => {
+          // BƯỚC 1: CHÈN NỘI DUNG MỚI
+          document.getElementById("content-area").innerHTML = html;
+          
+          // BƯỚC 2: TẢI VÀ KHỞI TẠO LẠI CÁC SCRIPT KHÁC
+          reInitializeScripts();
+        })
+        .catch(err => console.error("Lỗi tải trang:", err));
+    }
+
+    // === TẢI VÀ CHẠY LẠI SCRIPT MỘT CÁCH ĐỒNG BỘ ===
+    // (Bỏ auth.js vì nó đã được sửa để dùng Event Delegation)
+    function reInitializeScripts() {
+      // Các script cần phải được chạy lại để khởi tạo chức năng trên nội dung mới
+      const scriptsToRun = [
+        "js/slider.js",
+        "js/scroll-animate.js",
+        "js/app.js",
+        "js/main.js"
+      ];
+      
+      function loadScript(index) {
+        if (index >= scriptsToRun.length) {
+          
+          return; 
+        }
+
+        const src = scriptsToRun[index];
+        const old = document.querySelector(`script[src="${src}"]`);
         
-        <div class="logo-right">
-            <img src="./images/Thiết kế chưa có tên.png" alt="Logo TTN">
-        </div>
-    </main>
+        if (old) old.remove();
+        
+        const s = document.createElement("script");
+        s.src = src;
+        s.onload = () => {
+          loadScript(index + 1);
+        };
+        s.onerror = () => {
+          console.error(`Lỗi tải script: ${src}`);
+          loadScript(index + 1); 
+        };
+        document.body.appendChild(s);
+      }
 
-    <!-- sản phẩm nổi bật -->
-<section class="featured-products scroll-animate">
-  <h2>Sản phẩm nổi bật</h2>
-  <div class="product-grid">
-
-    <!-- === 1 sản phẩm === -->
-    <div class="product-card">
-      <div class="image-slider">
-        <div class="image-track">
-          <img src="./images/ao.jpg" alt="Áo bóng đá">
-          <img src="./images/ao2.jpg" alt="Áo bóng đá">
-          <img src="./images/ao3.jpg" alt="Áo bóng đá">
-        </div>
-        <div class="slider-dots"></div>
-      </div>
-      <h3>Áo bóng đá</h3>
-      <p>Thiết kế thoáng mát, chất liệu cao cấp.</p>
-      <button class="requires-login">Mua ngay</button>
-    </div>
-
-    <!-- === 2 === -->
-    <div class="product-card">
-      <div class="image-slider">
-        <div class="image-track">
-          <img src="./images/giay.jpg" alt="Giày thể thao">
-          <img src="./images/giay1.jpg" alt="Giày thể thao">
-          <img src="./images/giay2.jpg" alt="Giày thể thao">
-        </div>
-        <div class="slider-dots"></div>
-      </div>
-      <h3>Giày thể thao</h3>
-      <p>Bền, nhẹ, hỗ trợ tập luyện hiệu quả.</p>
-      <button class="requires-login">Mua ngay</button>
-    </div>
-
-    <!-- === 3 === -->
-    <div class="product-card">
-      <div class="image-slider">
-        <div class="image-track">
-          <img src="./images/dungcu.jpg" alt="Dụng cụ tập">
-          <img src="./images/dungcu1.jpg" alt="Dụng cụ tập">
-          <img src="./images/dungcu2.jpg" alt="Dụng cụ tập">
-        </div>
-        <div class="slider-dots"></div>
-      </div>
-      <h3>Dụng cụ tập</h3>
-      <p>Đầy đủ phụ kiện tập gym tại nhà.</p>
-      <button class="requires-login">Mua ngay</button>
-    </div>
-
-  </div>
-</section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-logo">
-                <img src="./images/Thiết kế chưa có tên.png" alt="Logo TTN">
-                <h2>TTN SPORT™</h2>
-            </div>
-
-            <div class="footer-links">
-                <a href="#">Developers & Companies</a>
-                <a href="#">Creators</a>
-                <a href="#">About Us</a>
-                <a href="#">Contact</a>
-            </div>
-
-            <div class="footer-socials">
-                <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
-                <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#"><i class="fa-brands fa-discord"></i></a>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <p>© TTN SPORT</p>
-            <div>
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Service</a>
-            </div>
-        </div>
-    </footer>
-
-
-    <script src="js/checkRole.js"></script>
-    <script src="js/auth.js"></script>
-    <script src="js/slider.js"></script>
-    <script src="js/scroll-animate.js"></script>
+      loadScript(0);
+    }
+  </script>
 </body>
 </html>

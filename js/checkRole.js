@@ -1,29 +1,34 @@
 // checkRole.js
 document.addEventListener("DOMContentLoaded", () => {
-  const role = sessionStorage.getItem("userRole"); 
-  const username = sessionStorage.getItem("username"); 
+  const role = sessionStorage.getItem("userRole"); // Vai trò (ADMIN, STAFF, CUSTOMER)
+  const username = sessionStorage.getItem("username"); // Tên người dùng
   const currentPage = window.location.pathname;
 
   const roleInNav = document.getElementById("userRoleInNav");
   const logoutItem = document.getElementById("logoutItem");
 
+  // ==== Cập nhật giao diện người dùng ====
   if (roleInNav) {
     if (username) {
+      // Nếu đã đăng nhập
       if (role === "ADMIN" || role === "STAFF") {
         roleInNav.textContent = `${username} (${role === "ADMIN" ? "Admin" : "Nhân viên"})`;
       } else {
-        roleInNav.textContent = username; 
+        roleInNav.textContent = username; // Nếu là khách hàng chỉ hiện tên
       }
     } else {
       roleInNav.textContent = "Khách (chưa đăng nhập)";
     }
   }
 
+  // Hiển thị hoặc ẩn nút đăng xuất
   if (logoutItem) {
     logoutItem.style.display = username ? "inline-block" : "none";
   }
 
+  // ==== Phân quyền truy cập ====
   if (!role) {
+    // ❌ Chưa đăng nhập — không được vào admin/staff
     if (
       currentPage.includes("tk.admin.html") ||
       currentPage.includes("tk.staff.html")
@@ -32,12 +37,15 @@ document.addEventListener("DOMContentLoaded", () => {
       window.location.href = "login.html";
       return;
     }
+    // Cho phép ở lại trang khách hàng
     return;
   }
 
+  // ==== Người đã đăng nhập ====
   redirectByRole(role);
 });
 
+// ==== Hàm điều hướng theo vai trò ====
 function redirectByRole(role) {
   const currentPage = window.location.pathname;
 
@@ -52,6 +60,7 @@ function redirectByRole(role) {
   }
 }
 
+// ==== Đăng xuất ====
 function logout() {
   sessionStorage.clear();
   window.location.href = "login.html";

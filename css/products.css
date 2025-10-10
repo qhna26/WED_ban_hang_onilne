@@ -1,0 +1,105 @@
+.category-grid {
+  padding: 30px;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.category-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.category-item {
+  background: radial-gradient(circle at top left, #00ffe7, #00bfa5); /* nền gradient sáng */
+  border: 2px solid #ffffff; /* viền trắng nổi bật */
+  border-radius: 16px;
+  padding: 18px;
+  text-align: center;
+  font-weight: bold;
+  color: #000000; /* chữ đen rõ nét */
+  font-size: 18px;
+  box-shadow: 0 0 25px rgba(0, 255, 231, 0.9); /* đổ bóng mạnh */
+  transition: all 0.3s ease;
+  cursor: pointer;
+  backdrop-filter: blur(4px); /* hiệu ứng mờ nền */
+}
+
+.category-item:hover {
+  background: linear-gradient(135deg, #ffffff, #d1fff9); /* hover sáng hơn nữa */
+  transform: scale(1.1);
+  color: #00bfa5; /* chữ xanh ngọc khi hover */
+  box-shadow: 0 0 30px rgba(255, 255, 255, 1); /* viền phát sáng mạnh */
+}
+
+.promo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 30px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.promo-card {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0,255,231,0.2);
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.promo-card:hover {
+  transform: scale(1.03);
+}
+
+.promo-card img {
+  width: 100%;
+  max-width: 180px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.promo-card h3 {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.promo-card .price {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.promo-card del {
+  color: #ccc;
+  margin-right: 5px;
+}
+
+.promo-card strong {
+  color: #00ffe7;
+}
+
+.promo-card button {
+  background-color: #00ffe7;
+  color: #000;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.discount-tag {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  padding: 4px 6px;
+  border-radius: 4px;
+  font-weight: bold;
+}

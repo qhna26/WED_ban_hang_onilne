@@ -28,11 +28,13 @@ body {
 
 nav {
     position: relative;
-    z-index: 10; 
+    z-index: 10;
     padding: 20px 50px;
     display: flex;
     justify-content: flex-end;
+    margin-bottom: 10px; /* thêm dòng này */
 }
+
 
 nav ul {
     list-style: none;
@@ -99,60 +101,119 @@ nav button:hover {
     }
 }
 
-main.hero {
-    position: relative;
-    z-index: 5;
-    width: 90%;
-    max-width: 1400px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 100px 40px; 
-    min-height: 80vh;
+/* === HERO === */
+#hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
+  max-width: 1600px;
+  margin: 60px auto 120px;
+  padding: 40px 0;
+  gap: 40px;
+  color: #fff;
+  position: relative;
+  z-index: 5;
 }
 
+/* === LEFT (chữ) === */
 .hero-left {
-    max-width: 50%;
-    animation: fadeUp 1.2s ease-out forwards;
-    animation-delay: 0.2s;
+  flex: 1;
+  max-width: 45%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  animation: fadeUp 1s ease forwards;
+  opacity: 0;
+}
+
+.hero-left h1 {
+  font-size: 3.6rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 25px;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: left; /* ✅ Không justify nữa */
+}
+
+.hero-left p {
+  font-size: 1.25rem;
+  line-height: 1.8;
+  color: #dddddd;
+  text-align: left;
+  margin-bottom: 0;
+  max-width: 95%;
+}
+
+/* === RIGHT (logo) === */
+.hero-right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.hero-right img {
+  width: 150%;
+  max-width: none; /* ✅ bỏ giới hạn */
+  height: auto;
+  transform: translateX(5%) translateY(-10px);
+  filter: drop-shadow(0 0 25px rgba(0, 255, 255, 0.5))
+          drop-shadow(0 0 45px rgba(0, 255, 255, 0.25));
+  transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+.hero-right img:hover {
+  transform: scale(1.03) translateX(5%) translateY(-10px);
+  filter: drop-shadow(0 0 50px rgba(0, 255, 255, 0.8));
+}
+
+/* === Hiệu ứng xuất hiện === */
+@keyframes fadeUp {
+  from {
     opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.hero h1 {
-    font-size: 4.5vw;
-    font-weight: 700;
-    margin-bottom: 20px;
-    line-height: 1.1;
+/* === RESPONSIVE === */
+@media (max-width: 1024px) {
+  #hero {
+    flex-direction: column;
+    gap: 30px;
+    text-align: center;
+    padding: 40px 20px;
+  }
+
+  .hero-left {
+    max-width: 100%;
+  }
+
+  .hero-left h1 {
+    font-size: 2.4rem;
+    text-align: center;
+  }
+
+  .hero-left p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    text-align: center;
+  }
+
+  .hero-right img {
+    width: 100%;
+    max-width: 600px;
+    transform: none;
+  }
 }
 
-.hero p {
-    font-size: 16px;
-    color: #ccc;
-    max-width: 500px;
-    line-height: 1.6;
-    margin-top: 0;
-    animation: fadeUp 1.4s ease-out forwards;
-    animation-delay: 0.4s;
-    opacity: 0;
-}
-
-.logo-right {
-    max-width: 40%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: static; 
-    padding-left: 0;
-}
-
-.logo-right img {
-    width: 90vw;
-    min-width: 1200px; 
-    height: auto;
-    filter: drop-shadow(0 0 15px rgba(0, 255, 255, 0.6))
-            drop-shadow(0 0 30px rgba(0, 255, 255, 0.3));
-}
 
 .logo-section::after, .formless-logo {
     display: none;
@@ -233,16 +294,17 @@ main.hero {
 }
 
 .scroll-animate {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
-    will-change: opacity, transform;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
 .scroll-animate.in-view {
-    opacity: 1;
-    transform: translateY(0);
+  opacity: 1;
+  transform: translateY(0);
 }
+
+
 
 /* ==== Popup thông báo đăng nhập ==== */
 .popup-overlay {
@@ -492,6 +554,156 @@ main.hero {
   background: #ffffff22;
   color: #00ffff;
 }
+
+/* ==== FOOTER ==== */
+.footer {
+  background: radial-gradient(circle at top, #0a0a0a, #000);
+  color: #fff;
+  text-align: center;
+  padding: 60px 20px 30px;
+  position: relative;
+  overflow: hidden;
+  font-family: "Poppins", sans-serif;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+}
+
+.footer-logo img {
+  width: 80px;
+  height: auto;
+  margin-bottom: 10px;
+  filter: brightness(1.2);
+}
+
+.footer-logo h2 {
+  font-size: 2.2rem;
+  letter-spacing: 2px;
+  margin: 0;
+}
+
+.footer-links {
+  display: flex;
+  gap: 25px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.footer-links a {
+  color: #ccc;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover {
+  color: #fff;
+}
+
+.footer-socials {
+  display: flex;
+  gap: 20px;
+  font-size: 1.3rem;
+  justify-content: center;
+}
+
+.footer-socials a {
+  color: #ccc;
+  transition: color 0.3s, transform 0.3s;
+}
+
+.footer-socials a:hover {
+  color: #00ffff;
+  transform: scale(1.1);
+}
+
+.footer-bottom {
+  margin-top: 40px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 0.85rem;
+  color: #999;
+}
+
+.footer-bottom a {
+  color: #999;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+.footer-bottom a:hover {
+  color: #fff;
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+  .footer-content {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-links {
+    order: 2;
+  }
+  .footer-socials {
+    order: 3;
+  }
+}
+
+/* === Hiệu ứng chuyển trang ngang === */
+.page-transition {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #00ffe7, #007bff);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease-in-out;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+/* Khi rời trang */
+.page-transition.slide-out {
+  transform: translateX(0);
+}
+
+/* Khi vào trang mới */
+.page-transition.slide-in {
+  transform: translateX(100%);
+}
+
+/* Hiệu ứng chuyển slide mượt */
+#content-area {
+  transition: all 0.4s ease;
+  position: relative;
+}
+
+.slide-out {
+  transform: translateX(-80px);
+  opacity: 0;
+}
+
+.slide-in {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+
+/* .scroll-animate {
+  opacity: 1 !important;
+  transform: none !important;
+} */
+
+
+
 
 
 

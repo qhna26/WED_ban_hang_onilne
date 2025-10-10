@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trang Admin</title>
+  <link rel="stylesheet" href="../css/style_admin.css">
+</head>
+<body>
+  <canvas id="bgCanvas"></canvas>
+
+  <nav>
+    <ul>
+      <li><a href="tk.admin.html">Trang chủ</a></li>
+      <li><a href="products.html">Sản phẩm</a></li>
+      <li><a href="product_detail.html">Chi tiết sản phẩm</a></li>
+      <li><a href="cart.html">Giỏ hàng</a></li>
+      <li><a href="checkout.html">Thanh toán</a></li>
+      <li><button onclick="logout()">Đăng xuất</button></li>
+      <li class="role-menu">
+        <button title="Vai trò người dùng">
+          <span aria-hidden="true">&#128100;</span>
+          <span class="role-text" id="userRoleInNav"></span>
+        </button>
+      </li>
+    </ul>
+  </nav>
+
+ 
+<script src="js/slider.js"></script>
+   <script src="js/auth.js"></script>
+</body>
+</html>

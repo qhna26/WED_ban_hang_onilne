@@ -1,0 +1,21 @@
+#orderSummary {
+  width: 80%;
+  margin: 20px auto;
+  padding: 15px;
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+.checkout-actions {
+  text-align: center;
+  margin-top: 20px;
+}
+button {
+  padding: 10px 18px;
+  margin: 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+#confirmCheckout { background: #28a745; color: white; }
+#cancelCheckout { background: #dc3545; color: white; }

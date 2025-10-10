@@ -5,31 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trang Khách Hàng</title>
     <link rel="stylesheet" href="css/style_nv,kh.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 </head>
 <body>
     <canvas id="bgCanvas"></canvas>
 
     <nav>
-        <ul>
-            <li><a href="home.html">Trang chủ</a></li>
-            <li><a href="products.html">Sản phẩm</a></li>
-            <li><a href="product_detail.html">Chi tiết sản phẩm</a></li>
-            <li><a href="cart.html">Giỏ hàng</a></li>
-            <li><a href="checkout.html">Thanh toán</a></li>
-            <li><button onclick="logout()">Đăng xuất</button></li>
-            <li class="role-menu">
-                <button title="Vai trò người dùng">
-                    <span aria-hidden="true">&#128100;</span> 
-                    <span class="role-text" id="userRoleInNav"></span> 
-                </button>
-            </li>
-        </ul>
-    </nav>
+    <ul>
+        <li><a href="home.html">Trang chủ</a></li>
+        <li><a href="products.html">Sản phẩm</a></li>
+        <li><a href="product_detail.html">Chi tiết sản phẩm</a></li>
+        <li><a href="cart.html">Giỏ hàng</a></li>
+        <li id="logoutItem" style="display: none;">
+            <button onclick="logout()">Đăng xuất</button>
+        </li>
+        <li class="role-menu">
+  <button id="userInfoBtn" title="Vai trò người dùng">
+    <span aria-hidden="true">&#128100;</span>
+    <span class="role-text" id="userRoleInNav">Khách (chưa đăng nhập)</span>
+  </button>
+</li>
+    </ul>
+</nav>
+
 
     <main class="hero">
         <div class="hero-left">
             <h1>Chào mừng bạn đến với trang web của chúng tôi</h1>
-            <p>Ở đây bán các sản phẩm thể thao: áo đá bóng, áo bóng rổ, dụng cụ tập luyện,... Cung cấp những gì bạn cần!</p>
+            <p>Ở đây chúng tôi cung cấp đa dạng các sản phẩm thể thao như áo đá bóng, áo bóng rổ, giày và dụng cụ tập luyện, mang đến cho bạn sự thoải mái, phong cách và tự tin trong mỗi buổi tập luyện hay thi đấu.</p>
         </div>
         
         <div class="logo-right">
@@ -38,29 +42,89 @@
     </main>
 
     <!-- sản phẩm nổi bật -->
-    <section class="featured-products scroll-animate">
-        <h2>Sản phẩm nổi bật</h2>
-        <div class="product-list">
-            <div class="product-card">
-                <img src="./images/ao-bong-da.jpg" alt="Áo bóng đá">
-                <h3>Áo bóng đá</h3>
-                <p>Thiết kế thoáng mát, chất liệu cao cấp.</p>
-                <button class="requires-login">Mua ngay</button>
+<section class="featured-products scroll-animate">
+  <h2>Sản phẩm nổi bật</h2>
+  <div class="product-grid">
+
+    <!-- === 1 sản phẩm === -->
+    <div class="product-card">
+      <div class="image-slider">
+        <div class="image-track">
+          <img src="./images/ao.jpg" alt="Áo bóng đá">
+          <img src="./images/ao2.jpg" alt="Áo bóng đá">
+          <img src="./images/ao3.jpg" alt="Áo bóng đá">
+        </div>
+        <div class="slider-dots"></div>
+      </div>
+      <h3>Áo bóng đá</h3>
+      <p>Thiết kế thoáng mát, chất liệu cao cấp.</p>
+      <button class="requires-login">Mua ngay</button>
+    </div>
+
+    <!-- === 2 === -->
+    <div class="product-card">
+      <div class="image-slider">
+        <div class="image-track">
+          <img src="./images/giay.jpg" alt="Giày thể thao">
+          <img src="./images/giay1.jpg" alt="Giày thể thao">
+          <img src="./images/giay2.jpg" alt="Giày thể thao">
+        </div>
+        <div class="slider-dots"></div>
+      </div>
+      <h3>Giày thể thao</h3>
+      <p>Bền, nhẹ, hỗ trợ tập luyện hiệu quả.</p>
+      <button class="requires-login">Mua ngay</button>
+    </div>
+
+    <!-- === 3 === -->
+    <div class="product-card">
+      <div class="image-slider">
+        <div class="image-track">
+          <img src="./images/dungcu.jpg" alt="Dụng cụ tập">
+          <img src="./images/dungcu1.jpg" alt="Dụng cụ tập">
+          <img src="./images/dungcu2.jpg" alt="Dụng cụ tập">
+        </div>
+        <div class="slider-dots"></div>
+      </div>
+      <h3>Dụng cụ tập</h3>
+      <p>Đầy đủ phụ kiện tập gym tại nhà.</p>
+      <button class="requires-login">Mua ngay</button>
+    </div>
+
+  </div>
+</section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="./images/Thiết kế chưa có tên.png" alt="Logo TTN">
+                <h2>TTN SPORT™</h2>
             </div>
-            <div class="product-card">
-                <img src="./images/giay-the-thao.jpg" alt="Giày thể thao">
-                <h3>Giày thể thao</h3>
-                <p>Bền, nhẹ, hỗ trợ tập luyện hiệu quả.</p>
-                <button class="requires-login">Mua ngay</button>
+
+            <div class="footer-links">
+                <a href="#">Developers & Companies</a>
+                <a href="#">Creators</a>
+                <a href="#">About Us</a>
+                <a href="#">Contact</a>
             </div>
-            <div class="product-card">
-                <img src="./images/dung-cu-tap.jpg" alt="Dụng cụ tập">
-                <h3>Dụng cụ tập</h3>
-                <p>Đầy đủ phụ kiện tập gym tại nhà.</p>
-                <button class="requires-login">Mua ngay</button>
+
+            <div class="footer-socials">
+                <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-discord"></i></a>
             </div>
         </div>
-    </section>
+
+        <div class="footer-bottom">
+            <p>© TTN SPORT</p>
+            <div>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
 
     <script src="js/checkRole.js"></script>
     <script src="js/auth.js"></script>

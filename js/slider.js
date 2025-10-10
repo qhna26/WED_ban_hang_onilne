@@ -97,3 +97,55 @@ if (canvas) {
     drawBackground();
     animate();
 }
+
+// document.addEventListener("DOMContentLoaded", () => {
+//     const track = document.querySelector('.product-list');
+//     if (!track) return;
+
+//     track.innerHTML += track.innerHTML;
+
+//     const trackWidth = track.scrollWidth / 2;
+//     let position = 0;
+//     const speed = 1;
+
+//     function move() {
+//         position -= speed;
+//         if (Math.abs(position) >= trackWidth) {
+//             position = 0;
+//         }
+//         track.style.transform = `translateX(${position}px)`;
+//         requestAnimationFrame(move);
+//     }
+
+//     move();
+// });
+
+document.querySelectorAll('.image-slider').forEach(slider => {
+  const track = slider.querySelector('.image-track');
+  const images = slider.querySelectorAll('img');
+  const dotsContainer = slider.querySelector('.slider-dots');
+
+  let current = 0;
+
+    images.forEach((_, i) => {
+    const dot = document.createElement('button');
+    if (i === 0) dot.classList.add('active');
+    dot.addEventListener('click', () => goToSlide(i));
+    dotsContainer.appendChild(dot);
+  });
+
+  const dots = dotsContainer.querySelectorAll('button');
+
+  function goToSlide(index) {
+    current = index;
+    track.style.transform = `translateX(-${index * 100}%)`;
+    dots.forEach(d => d.classList.remove('active'));
+    dots[index].classList.add('active');
+  }
+
+  setInterval(() => {
+    current = (current + 1) % images.length;
+    goToSlide(current);
+  }, 5000);
+});
+

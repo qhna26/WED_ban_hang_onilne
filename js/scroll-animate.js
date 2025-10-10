@@ -1,14 +1,27 @@
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('in-view');
+const scrollElements = document.querySelectorAll(".scroll-animate");
+
+function elementInView(el, offset = 100) {
+  const elementTop = el.getBoundingClientRect().top;
+  return elementTop <= (window.innerHeight - offset);
+}
+
+function displayScrollElement(el) {
+  el.classList.add("in-view");
+}
+
+function hideScrollElement(el) {
+  el.classList.remove("in-view");
+}
+
+function handleScrollAnimation() {
+  scrollElements.forEach((el) => {
+    if (elementInView(el)) {
+      displayScrollElement(el);
     } else {
-      entry.target.classList.remove('in-view');
+      hideScrollElement(el);
     }
   });
-}, {
-  threshold: 0.1,
-  rootMargin: "0px 0px -10% 0px"
-});
+}
 
-document.querySelectorAll('.scroll-animate').forEach(el => observer.observe(el));
+window.addEventListener("scroll", handleScrollAnimation);
+handleScrollAnimation();

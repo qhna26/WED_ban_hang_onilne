@@ -1,22 +1,28 @@
 // checkRole.js
 document.addEventListener("DOMContentLoaded", () => {
-  const role = sessionStorage.getItem("userRole");
-
-  // Hiển thị vai trò nếu có đăng nhập
-  const roleInNav = document.getElementById("userRoleInNav");
-  if (roleInNav) {
-    if (role === "ADMIN") roleInNav.textContent = "Admin";
-    else if (role === "STAFF") roleInNav.textContent = "Nhân viên";
-    else if (role === "CUSTOMER") roleInNav.textContent = "Khách hàng";
-    else roleInNav.textContent = "Khách (chưa đăng nhập)";
-  }
-
-  // Xác định trang hiện tại
+  const role = sessionStorage.getItem("userRole"); 
+  const username = sessionStorage.getItem("username"); 
   const currentPage = window.location.pathname;
 
-  // ✅ 1. Người CHƯA ĐĂNG NHẬP:
-  // - Cho phép vào trang khách hàng
-  // - Nhưng cấm truy cập vào admin hoặc staff
+  const roleInNav = document.getElementById("userRoleInNav");
+  const logoutItem = document.getElementById("logoutItem");
+
+  if (roleInNav) {
+    if (username) {
+      if (role === "ADMIN" || role === "STAFF") {
+        roleInNav.textContent = `${username} (${role === "ADMIN" ? "Admin" : "Nhân viên"})`;
+      } else {
+        roleInNav.textContent = username; 
+      }
+    } else {
+      roleInNav.textContent = "Khách (chưa đăng nhập)";
+    }
+  }
+
+  if (logoutItem) {
+    logoutItem.style.display = username ? "inline-block" : "none";
+  }
+
   if (!role) {
     if (
       currentPage.includes("tk.admin.html") ||
@@ -26,16 +32,12 @@ document.addEventListener("DOMContentLoaded", () => {
       window.location.href = "login.html";
       return;
     }
-    // Nếu là khách thì không chuyển hướng, cho ở lại trang customer
     return;
   }
 
-  // ✅ 2. Người ĐÃ ĐĂNG NHẬP:
-  // - Điều hướng đến đúng trang của họ
   redirectByRole(role);
 });
 
-// Hàm điều hướng theo vai trò
 function redirectByRole(role) {
   const currentPage = window.location.pathname;
 
@@ -50,8 +52,23 @@ function redirectByRole(role) {
   }
 }
 
-// Đăng xuất
 function logout() {
   sessionStorage.clear();
   window.location.href = "login.html";
 }
+
+// Khi bấm vào nút người dùng
+document.addEventListener("DOMContentLoaded", () => {
+  const userInfoBtn = document.getElementById("userInfoBtn");
+
+  if (userInfoBtn) {
+    userInfoBtn.addEventListener("click", () => {
+      const username = sessionStorage.getItem("username");
+
+      // Nếu chưa đăng nhập → chuyển sang trang login
+      if (!username) {
+        window.location.href = "login.html";
+      }
+    });
+  }
+});

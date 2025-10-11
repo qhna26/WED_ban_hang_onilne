@@ -1,29 +1,26 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const scrollElements = document.querySelectorAll(".scroll-animate");
-
-  function elementInView(el, offset = 100) {
-    const elementTop = el.getBoundingClientRect().top;
-    return elementTop <= (window.innerHeight - offset);
-  }
-
-  function displayScrollElement(el) {
-    el.classList.add("in-view");
-  }
-
-  function hideScrollElement(el) {
-    el.classList.remove("in-view");
-  }
-
-  function handleScrollAnimation() {
-    scrollElements.forEach((el) => {
-      if (elementInView(el)) {
-        displayScrollElement(el);
-      } else {
-        hideScrollElement(el);
-      }
+// scroll-animate.js
+function cleanupScrollAnimation() {
+    document.querySelectorAll('.scroll-animate').forEach(el => {
+        el.classList.remove('in-view');
     });
-  }
+}
 
-  window.addEventListener("scroll", handleScrollAnimation);
-  handleScrollAnimation();
-});
+function initScrollAnimation() {
+    const elements = document.querySelectorAll('.scroll-animate');
+    elements.forEach((el, index) => {
+        el.style.setProperty('--order', index); // Đặt thứ tự cho delay
+        const rect = el.getBoundingClientRect();
+        const isInView = rect.top < window.innerHeight - 100 && rect.bottom > 100;
+
+        if (isInView) el.classList.add('in-view');
+
+        window.addEventListener('scroll', () => {
+            const rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight - 100 && rect.bottom > 100) {
+                el.classList.add('in-view');
+            } else {
+                el.classList.remove('in-view');
+            }
+        }, { passive: true });
+    });
+}

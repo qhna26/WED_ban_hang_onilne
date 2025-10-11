@@ -5,50 +5,51 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TTN SPORT - Khách hàng</title>
   <link rel="stylesheet" href="css/style_nv,kh.css">
+  <link rel="stylesheet" href="css/products.css">
+  <link rel="stylesheet" href="css/cart.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-  <canvas id="bgCanvas"></canvas>
+  <canvas id="bgCanvas"></canvas> <!-- Canvas luôn hiển thị -->
+  <div class="page-container">
+    <nav>
+      <!-- Nav luôn hiển thị -->
+      <ul>
+        <li><a href="#" id="homeLink">Trang chủ</a></li>
+        <li><a href="#" id="productsLink">Sản phẩm</a></li>
+        <li><a href="#" id="cartLink">Giỏ hàng</a></li>
+        <li id="logoutItem" style="display:none;"><button onclick="logout()">Đăng xuất</button></li>
+        <li class="role-menu">
+          <button id="userInfoBtn" title="Vai trò người dùng">
+            <span aria-hidden="true">&#128100;</span>
+            <span class="role-text" id="userRoleInNav">Khách (chưa đăng nhập)</span>
+          </button>
+        </li>
+      </ul>
+    </nav>
 
-  <nav>
-    <ul>
-      <li><a href="#" id="homeLink">Trang chủ</a></li>
-      <li><a href="products.html">Sản phẩm</a></li>
-      <li><a href="product_detail.html">Chi tiết sản phẩm</a></li>
-      <li><a href="cart.html">Giỏ hàng</a></li>
-      <li id="logoutItem" style="display:none;"><button onclick="logout()">Đăng xuất</button></li>
-      <li class="role-menu">
-        <button id="userInfoBtn" title="Vai trò người dùng">
-          <span aria-hidden="true">&#128100;</span>
-          <span class="role-text" id="userRoleInNav">Khách (chưa đăng nhập)</span>
-        </button>
-      </li>
-    </ul>
-  </nav>
-
-  <main id="content-area"></main>
+    <main id="content-area" class="page-content"></main>
+  </div>
 
   <footer class="footer">
+    <!-- Footer luôn hiển thị, không mất -->
     <div class="footer-content">
       <div class="footer-logo">
         <img src="./images/Thiết kế chưa có tên.png" alt="Logo TTN">
         <h2>TTN SPORT™</h2>
       </div>
-
       <div class="footer-links">
         <a href="#">Developers & Companies</a>
         <a href="#">Creators</a>
         <a href="#">About Us</a>
         <a href="#">Contact</a>
       </div>
-
       <div class="footer-socials">
         <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
         <a href="#"><i class="fa-brands fa-instagram"></i></a>
         <a href="#"><i class="fa-brands fa-discord"></i></a>
       </div>
     </div>
-
     <div class="footer-bottom">
       <p>© TTN SPORT</p>
       <div>
@@ -60,68 +61,92 @@
 
   <script src="js/checkRole.js"></script>
   <script src="js/auth.js"></script> 
+  <script src="js/slider.js"></script>
+  <script src="js/scroll-animate.js"></script>
+  <script src="js/product.js"></script>
   
   <script>
-    // === TẢI TRANG CHỦ MẶC ĐỊNH ===
-    document.addEventListener("DOMContentLoaded", () => {
-      loadPage("pages/home.html");
-    });
+    const contentArea = document.getElementById("content-area");
 
-    document.getElementById("homeLink").addEventListener("click", (e) => {
-      e.preventDefault();
-      loadPage("pages/home.html");
-    });
-
-    // === HÀM LOAD PAGE VÀ KÍCH HOẠT JS ===
     function loadPage(page) {
-      fetch(page)
-        .then(res => res.text())
-        .then(html => {
-          // BƯỚC 1: CHÈN NỘI DUNG MỚI
-          document.getElementById("content-area").innerHTML = html;
-          
-          // BƯỚC 2: TẢI VÀ KHỞI TẠO LẠI CÁC SCRIPT KHÁC
-          reInitializeScripts();
-        })
-        .catch(err => console.error("Lỗi tải trang:", err));
-    }
-
-    // === TẢI VÀ CHẠY LẠI SCRIPT MỘT CÁCH ĐỒNG BỘ ===
-    // (Bỏ auth.js vì nó đã được sửa để dùng Event Delegation)
-    function reInitializeScripts() {
-      // Các script cần phải được chạy lại để khởi tạo chức năng trên nội dung mới
-      const scriptsToRun = [
-        "js/slider.js",
-        "js/scroll-animate.js",
-        "js/app.js",
-        "js/main.js"
-      ];
+      contentArea.classList.remove('transition-in');
+      contentArea.classList.add('transition-out');
       
-      function loadScript(index) {
-        if (index >= scriptsToRun.length) {
-          
-          return; 
-        }
+      setTimeout(() => {
+        cleanupSlider();
+        cleanupScrollAnimation();
 
-        const src = scriptsToRun[index];
-        const old = document.querySelector(`script[src="${src}"]`);
-        
-        if (old) old.remove();
-        
-        const s = document.createElement("script");
-        s.src = src;
-        s.onload = () => {
-          loadScript(index + 1);
-        };
-        s.onerror = () => {
-          console.error(`Lỗi tải script: ${src}`);
-          loadScript(index + 1); 
-        };
-        document.body.appendChild(s);
-      }
-
-      loadScript(0);
+        fetch(`pages/${page}`)
+          .then(res => res.text())
+          .then(html => {
+            contentArea.innerHTML = html;
+            if (page === "products.html") {
+      initProductFilter(); // <-- Gọi hàm khi load products
     }
+            initSlider();
+            initScrollAnimation();
+
+            setTimeout(() => {
+              contentArea.classList.remove('transition-out');
+              contentArea.classList.add('transition-in');
+            }, 50);
+          })
+          .catch(err => {
+            console.error("Lỗi tải trang:", err);
+            contentArea.classList.remove('transition-out');
+            contentArea.classList.add('transition-in');
+          });
+      }, 600);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      contentArea.classList.add('transition-in');
+      
+      if (!sessionStorage.getItem("username")) {
+        loadPage("home.html");
+      } else {
+        loadPage("home.html");
+        document.getElementById("userRoleInNav").textContent = sessionStorage.getItem("username");
+        document.getElementById("logoutItem").style.display = "inline-block";
+      }
+      
+      document.getElementById("homeLink").addEventListener("click", (e) => {
+        e.preventDefault();
+        loadPage("home.html");
+      });
+      document.getElementById("productsLink").addEventListener("click", (e) => {
+        e.preventDefault();
+        loadPage("products.html");
+      });
+      document.getElementById("cartLink").addEventListener("click", (e) => {
+        e.preventDefault();
+        loadPage("cart.html");
+      });
+
+      // Sửa nút userInfoBtn để redirect tới login.html
+      const userInfoBtn = document.getElementById("userInfoBtn");
+      if (userInfoBtn) {
+        userInfoBtn.addEventListener("click", () => {
+          if (!sessionStorage.getItem("username")) {
+            window.location.href = "pages/login.html"; // Điều chỉnh đường dẫn
+          } else {
+            alert(`Đã đăng nhập với tên: ${sessionStorage.getItem("username")}`);
+          }
+        });
+      }
+    });
+
+    // Hàm logout
+    // 🧠 Hàm đăng xuất chuẩn
+function logout() {
+  // Xóa toàn bộ session + local (nếu có dùng)
+  sessionStorage.clear();
+  localStorage.removeItem("currentUser");
+
+  // ✅ Chuyển hướng hẳn về trang đăng nhập (trong folder pages)
+  window.location.href = "pages/login.html";
+}
+
   </script>
 </body>
 </html>

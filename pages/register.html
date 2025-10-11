@@ -1,32 +1,170 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <title>Sign Up | Shop Online</title>
+  <meta charset="UTF-8" />
+  <title>Đăng ký | TTN Shop</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="../css/style.css">
-  <link rel="stylesheet" href="../css/ttn.css">
-  </head>
+  <link rel="stylesheet" href="../css/login-new.css">
+</head>
 <body>
+  <canvas id="bg-animation"></canvas>
+
+  <div class="ttn-logo">TTN</div>
+
   <div class="auth-container">
-    <h2>Tạo Tài Khoản</h2>
-    <p>Đăng ký để bắt đầu</p>
+    <h2>Đăng ký tài khoản</h2>
+    <p>Vui lòng nhập thông tin của bạn để tiếp tục</p>
+
     <form id="registerForm" autocomplete="off">
-      <label for="reg-username">Đăng nhập</label>
-      <input type="text" id="reg-username" required autocomplete="username">
-      <label for="reg-password">Mật khẩu</label>
-      <input type="password" id="reg-password" required autocomplete="new-password">
-      <label for="reg-email">Email</label>
-      <input type="email" id="reg-email" required autocomplete="email">
-      <button type="submit">Sign up</button>
+      <!-- Thông tin cá nhân -->
+      <label for="fullname">Họ và tên</label>
+      <input type="text" id="fullname" required>
+
+      <label for="email">Email</label>
+      <input type="email" id="email" required>
+
+      <label for="password">Mật khẩu</label>
+      <input type="password" id="password" required>
+
+      <label for="confirmPassword">Xác nhận mật khẩu</label>
+      <input type="password" id="confirmPassword" required>
+
+      <div class="show-password">
+        <input type="checkbox" id="togglePassword">
+        <label for="togglePassword">Hiện mật khẩu</label>
+      </div>
+
+      <!-- Gửi OTP -->
+      <button type="button" id="sendOtpBtn">Gửi mã xác thực</button>
+
+      <!-- Nhập OTP -->
+      <div id="otpSection" style="display:none; margin-top:15px;">
+        <label for="otpInput">Nhập mã OTP đã gửi tới email</label>
+        <input type="text" id="otpInput" placeholder="Nhập mã OTP" required>
+        <button type="submit">Xác nhận đăng ký</button>
+      </div>
     </form>
+
     <div class="auth-link">
-      Bạn đã có tài khoản chưa?
-      <a href="login.html">Đăng nhập</a>
+      Đã có tài khoản? <a href="login.html">Đăng nhập</a>
     </div>
+    <div class="auth-link">
+      <a href="forgot-password.html">Quên mật khẩu?</a>
+    </div>
+
     <div id="registerMessage" class="auth-message"></div>
   </div>
-  <script src="js/register.js"></script>
 
+  <script src="../js/login-animate.js"></script>
+  <script>
+    // Hiện / ẩn mật khẩu
+    const toggle = document.getElementById('togglePassword');
+    const pass = document.getElementById('password');
+    const confirmPass = document.getElementById('confirmPassword');
+    toggle.addEventListener('change', () => {
+      const type = toggle.checked ? 'text' : 'password';
+      pass.type = type;
+      confirmPass.type = type;
+    });
+
+    const sendOtpBtn = document.getElementById('sendOtpBtn');
+    const otpSection = document.getElementById('otpSection');
+    const registerForm = document.getElementById('registerForm');
+    const message = document.getElementById('registerMessage');
+
+    // 🟡 Gửi OTP
+    sendOtpBtn.addEventListener('click', async () => {
+      const fullname = document.getElementById('fullname').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+
+      if (!fullname || !email || !password || !confirmPassword) {
+        showMessage('Vui lòng nhập đầy đủ thông tin!', 'red');
+        return;
+      }
+      if (password !== confirmPassword) {
+        showMessage('Mật khẩu không khớp!', 'red');
+        return;
+      }
+
+      // 🔥 Kiểm tra email đã tồn tại chưa (dữ liệu localStorage)
+      const users = JSON.parse(localStorage.getItem('users') || '[]');
+      if (users.find(u => u.email === email)) {
+        showMessage('Email này đã được đăng ký!', 'red');
+        return;
+      }
+
+      // Gửi OTP qua server Node
+      try {
+        const res = await fetch('http://127.0.0.1:4000/forgot-password', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        });
+        const data = await res.json();
+        if (data.status === 'ok') {
+          showMessage('Đã gửi mã OTP đến email của bạn. Kiểm tra hộp thư!', 'green');
+          otpSection.style.display = 'block';
+
+          // Lưu tạm thông tin để dùng sau khi xác nhận OTP
+          sessionStorage.setItem('pendingUser', JSON.stringify({ fullname, email, password }));
+        } else {
+          showMessage('Không gửi được mã xác thực, thử lại!', 'red');
+        }
+      } catch (error) {
+        console.error(error);
+        showMessage('Lỗi kết nối đến server OTP!', 'red');
+      }
+    });
+
+    // 🟢 Xác nhận OTP + đăng ký
+    registerForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const otp = document.getElementById('otpInput').value.trim();
+      const pendingUser = JSON.parse(sessionStorage.getItem('pendingUser') || 'null');
+
+      if (!pendingUser) {
+        showMessage('Vui lòng gửi mã OTP trước!', 'red');
+        return;
+      }
+
+      try {
+        const res = await fetch('http://127.0.0.1:4000/verify-otp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: pendingUser.email, otp })
+        });
+        const data = await res.json();
+
+        if (data.status === 'ok') {
+          // Lưu tài khoản vào localStorage
+          const users = JSON.parse(localStorage.getItem('users') || '[]');
+          users.push({
+            fullname: pendingUser.fullname,
+            email: pendingUser.email,
+            password: pendingUser.password,
+            role: 'CUSTOMER'
+          });
+          localStorage.setItem('users', JSON.stringify(users));
+
+          sessionStorage.removeItem('pendingUser');
+          showMessage('Đăng ký thành công! Đang chuyển hướng...', 'green');
+
+          setTimeout(() => window.location.href = 'login.html', 2000);
+        } else {
+          showMessage('Mã OTP không chính xác hoặc đã hết hạn!', 'red');
+        }
+      } catch (error) {
+        console.error(error);
+        showMessage('Lỗi xác thực OTP!', 'red');
+      }
+    });
+
+    function showMessage(text, color) {
+      message.textContent = text;
+      message.style.color = color;
+    }
+  </script>
 </body>
 </html>

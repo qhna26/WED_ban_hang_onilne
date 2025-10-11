@@ -1,42 +1,63 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const orderSummary = document.getElementById("orderSummary");
-  const confirmBtn = document.getElementById("confirmCheckout");
-  const cancelBtn = document.getElementById("cancelCheckout");
+  const listEl = document.getElementById("checkout-list");
+  const totalEl = document.getElementById("checkout-total");
+  const cartCount = document.getElementById("cart-count");
+  const cartIcon = document.getElementById("cart-icon");
+  const confirmBtn = document.getElementById("confirm-checkout");
+  const cancelBtn = document.getElementById("cancel-checkout");
 
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
-  const loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
+  // 👉 Cập nhật số lượng trên icon giỏ hàng
+  function updateCartCount() {
+    const total = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
+    cartCount.textContent = total;
+    cartIcon.classList.add("cart-bounce");
+    setTimeout(() => cartIcon.classList.remove("cart-bounce"), 600);
+  }
+
+  updateCartCount();
+
+  // 👉 Nếu giỏ hàng rỗng
   if (cart.length === 0) {
-    orderSummary.innerHTML = "<p>Giỏ hàng trống, vui lòng quay lại mua hàng.</p>";
-    confirmBtn.style.display = "none";
-    cancelBtn.style.display = "none";
+    listEl.innerHTML = "<p style='text-align:center; color:#ccc;'>🛒 Giỏ hàng của bạn trống!</p>";
+    totalEl.textContent = "";
+    confirmBtn.disabled = true;
     return;
   }
 
-  let total = 0;
-  let details = "<h3>Chi tiết đơn hàng</h3><ul>";
-  cart.forEach(i => {
-    total += i.price * i.quantity;
-    details += `<li>${i.name} x ${i.quantity} = ${(i.price * i.quantity).toLocaleString()} VND</li>`;
-  });
-  details += `</ul><p><strong>Tổng cộng: ${total.toLocaleString()} VND</strong></p>`;
-  orderSummary.innerHTML = details;
+  // 👉 Hiển thị sản phẩm
+  let totalPrice = 0;
+  listEl.innerHTML = cart.map(item => {
+    const price = parseInt(item.price) || 0;
+    const qty = parseInt(item.qty) || 1;
+    const sum = price * qty;
+    totalPrice += sum;
 
+    return `
+      <div class="checkout-item">
+        <img src="${item.image}" alt="${item.name}">
+        <div class="item-info">
+          <h4>${item.name}</h4>
+          <p>Giá: ${price.toLocaleString()} đ</p>
+          <p>Số lượng: ${qty}</p>
+        </div>
+        <div class="item-total">${sum.toLocaleString()} đ</div>
+      </div>
+    `;
+  }).join("");
+
+  totalEl.textContent = `Tổng tiền: ${totalPrice.toLocaleString()} đ`;
+
+  // 👉 Nút xác nhận
   confirmBtn.addEventListener("click", () => {
-    const email = loggedUser ? loggedUser.email : "example@gmail.com";
-    const message =
-      "Cảm ơn bạn đã mua hàng!\n\nĐơn hàng:\n" +
-      cart.map(i => `- ${i.name} x ${i.quantity}`).join("\n") +
-      `\n\nTổng cộng: ${total.toLocaleString()} VND`;
-
-    window.location.href = `mailto:${email}?subject=Đơn hàng của bạn&body=${encodeURIComponent(message)}`;
+    alert("✅ Thanh toán thành công! Cảm ơn bạn đã mua hàng.");
     localStorage.removeItem("cart");
+    window.location.href = "products.html";
   });
 
+  // 👉 Nút hủy
   cancelBtn.addEventListener("click", () => {
-    if (confirm("Bạn có chắc muốn hủy đơn hàng không?")) {
-      localStorage.removeItem("cart");
-      window.location.href = "product_detail.html";
-    }
+    window.location.href = "cart.html";
   });
 });

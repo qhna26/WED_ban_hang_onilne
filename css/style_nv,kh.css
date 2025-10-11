@@ -294,14 +294,19 @@ nav button:hover {
 }
 
 .scroll-animate {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+    opacity: 0;
+    transform: translateY(50px) scale(0.95);
+    transition: transform 0.8s ease-out, opacity 0.5s ease-out;
 }
 
 .scroll-animate.in-view {
-  opacity: 1;
-  transform: translateY(0);
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* Delay ngẫu nhiên cho từng phần tử */
+.scroll-animate.in-view {
+    transition-delay: calc(100ms * var(--order, 0));
 }
 
 
@@ -703,7 +708,103 @@ nav button:hover {
 } */
 
 
+/* ================================================= */
+/* === HIỆU ỨNG CHUYỂN TRANG NGANG (SLIDE) === */
+/* ================================================= */
 
 
+/* Nội dung chính */
+.page-container {
+    width: 100%;
+    overflow-x: hidden;
+    position: relative;
+    z-index: 5;
+    min-height: 100vh; /* Đảm bảo khung luôn đầy đủ */
+}
 
+#content-area {
+    width: 100%;
+    position: relative;
+    transition: opacity 0.3s ease; /* Giữ opacity để tránh nhấp nháy */
+    opacity: 1;
+}
 
+.content-element {
+    opacity: 0;
+    transform: translateX(100%);
+    transition: transform 0.8s ease-out, opacity 0.5s ease-out;
+    animation-fill-mode: forwards; /* Giữ trạng thái cuối */
+}
+
+.content-element.transition-in-right {
+    opacity: 1;
+    transform: translateX(0);
+    animation: slideInRight 0.8s ease-out forwards;
+}
+
+.content-element.transition-out-left {
+    opacity: 0;
+    transform: translateX(-100%);
+    animation: slideOutLeft 0.8s ease-out forwards;
+}
+
+.content-element.transition-in-left {
+    opacity: 1;
+    transform: translateX(0);
+    animation: slideInLeft 0.8s ease-out forwards;
+}
+
+.content-element.transition-out-right {
+    opacity: 0;
+    transform: translateX(100%);
+    animation: slideOutRight 0.8s ease-out forwards;
+}
+
+/* Định nghĩa animation */
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutLeft {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+#content-area * {
+    will-change: transform, opacity; /* Tối ưu hiệu suất */
+}

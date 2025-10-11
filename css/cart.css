@@ -1,26 +1,244 @@
-table {
-  width: 90%;
-  margin: 20px auto;
-  border-collapse: collapse;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-th, td {
-  border: 1px solid #ccc;
-  padding: 10px;
-  text-align: center;
+
+body {
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
 }
-.cart-actions {
-  text-align: center;
-  margin-top: 20px;
+
+/* 🧾 Bố cục 2 cột */
+.cart-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+  max-width: 1100px;
+  margin: 100px auto;
+  padding: 30px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  z-index: 5;
 }
-button {
-  background: #007bff;
-  color: white;
+
+.cart-left {
+  flex: 2;
+}
+
+.cart-left h1 {
+  color: #00ffc8;
+  margin-bottom: 20px;
+}
+
+/* Danh sách sản phẩm */
+.cart-items {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 12px 15px;
+  border-radius: 10px;
+  transition: background 0.3s;
+}
+
+.cart-item:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.cart-item img {
+  width: 80px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0,255,255,0.3);
+}
+
+.item-info {
+  flex: 1;
+  margin-left: 15px;
+}
+
+.item-info h3 {
+  color: #00ffe7;
+  font-size: 18px;
+}
+
+.item-info p {
+  color: #ccc;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.item-qty {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.item-qty button {
+  background: #00ffc8;
+  color: #000;
   border: none;
-  padding: 8px 15px;
-  margin: 3px;
+  padding: 4px 10px;
   border-radius: 5px;
+  font-weight: bold;
   cursor: pointer;
 }
-button:hover {
-  background: #0056b3;
+
+.remove-item {
+  background: #ff3b3b;
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* 🧮 Phần tổng tiền */
+.cart-right {
+  flex: 1;
+  background: rgba(255,255,255,0.08);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0,255,255,0.2);
+}
+
+.cart-right h3 {
+  text-align: center;
+  color: #00ffc8;
+  margin-bottom: 20px;
+}
+
+.cart-summary p {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+.cart-summary hr {
+  border: 1px solid rgba(255,255,255,0.2);
+  margin: 10px 0;
+}
+
+.cart-summary .total {
+  font-size: 18px;
+  color: #ff6161;
+  font-weight: bold;
+}
+
+/* 👤 Thông tin khách hàng */
+.customer-info h4 {
+  color: #00ffc8;
+  margin-bottom: 5px;
+}
+.customer-info p {
+  font-size: 14px;
+  margin: 4px 0;
+}
+
+/* 🏷 Mã giảm giá */
+.discount-box {
+  margin-bottom: 15px;
+}
+.discount-input {
+  display: flex;
+  gap: 5px;
+  margin-top: 5px;
+}
+.discount-input input {
+  flex: 1;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+}
+.discount-input button {
+  background: #00ffc8;
+  color: #000;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+#discount-msg {
+  color: #ff9;
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+/* Nút */
+.checkout-btn, .clear-btn {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.checkout-btn {
+  background: #00ffc8;
+  color: #000;
+}
+.checkout-btn:hover {
+  background: #00d4aa;
+  transform: scale(1.05);
+}
+
+.clear-btn {
+  background: #444;
+  color: white;
+}
+.clear-btn:hover {
+  background: #666;
+}
+/* 🛒 Cart icon giống product_detail */
+.cart-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  bottom: 7px;
+  gap: 5px;
+  font-size: 17px;
+  color: #00ffe7;
+  text-decoration: none;
+}
+
+#cart-icon {
+  font-size: 24px;
+  transition: transform 0.2s ease;
+}
+
+#cart-count {
+  background: red;
+  color: white;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 50%;
+  position: absolute;
+  top: -8px;
+  right: -10px;
+}
+
+.cart-bounce {
+  animation: bounce 0.6s;
+}
+
+@keyframes bounce {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.5); }
+  50% { transform: scale(0.9); }
+  100% { transform: scale(1); }
 }

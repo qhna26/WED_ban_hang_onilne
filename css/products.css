@@ -1,3 +1,4 @@
+/* 🟡 KHUNG DANH MỤC */
 .category-grid {
   padding: 30px;
   max-width: 1000px;
@@ -12,27 +13,28 @@
 }
 
 .category-item {
-  background: radial-gradient(circle at top left, #00ffe7, #00bfa5); /* nền gradient sáng */
-  border: 2px solid #ffffff; /* viền trắng nổi bật */
+  background: radial-gradient(circle at top left, #00ffe7, #00bfa5);
+  border: 2px solid #ffffff;
   border-radius: 16px;
   padding: 18px;
   text-align: center;
   font-weight: bold;
-  color: #000000; /* chữ đen rõ nét */
+  color: #000000;
   font-size: 18px;
-  box-shadow: 0 0 25px rgba(0, 255, 231, 0.9); /* đổ bóng mạnh */
+  box-shadow: 0 0 25px rgba(0, 255, 231, 0.9);
   transition: all 0.3s ease;
   cursor: pointer;
-  backdrop-filter: blur(4px); /* hiệu ứng mờ nền */
+  backdrop-filter: blur(4px);
 }
 
 .category-item:hover {
-  background: linear-gradient(135deg, #ffffff, #d1fff9); /* hover sáng hơn nữa */
+  background: linear-gradient(135deg, #ffffff, #d1fff9);
   transform: scale(1.1);
-  color: #00bfa5; /* chữ xanh ngọc khi hover */
-  box-shadow: 0 0 30px rgba(255, 255, 255, 1); /* viền phát sáng mạnh */
+  color: #00bfa5;
+  box-shadow: 0 0 30px rgba(255, 255, 255, 1);
 }
 
+/* 🟢 LƯỚI SẢN PHẨM */
 .promo-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -42,12 +44,16 @@
   margin: auto;
 }
 
+/* 🟣 THẺ SẢN PHẨM */
 .promo-card {
+  display: flex;                      /* ✅ Dàn nội dung theo chiều dọc */
+  flex-direction: column;
+  justify-content: space-between;     /* ✅ Nút luôn nằm dưới */
   background-color: rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   padding: 15px;
   text-align: center;
-  box-shadow: 0 0 10px rgba(0,255,231,0.2);
+  box-shadow: 0 0 10px rgba(0, 255, 231, 0.2);
   position: relative;
   transition: transform 0.3s ease;
 }
@@ -56,16 +62,23 @@
   transform: scale(1.03);
 }
 
+/* 🟤 ẢNH SẢN PHẨM: CỐ ĐỊNH KHUNG */
 .promo-card img {
   width: 100%;
-  max-width: 180px;
+  aspect-ratio: 1 / 1;     /* ✅ Tạo khung vuông cố định */
+  object-fit: cover;       /* Ảnh crop để khớp khung mà không méo */
   border-radius: 10px;
   margin-bottom: 10px;
 }
 
+/* 🟠 TIÊU ĐỀ VÀ GIÁ */
 .promo-card h3 {
   font-size: 16px;
   margin-bottom: 5px;
+  min-height: 40px;        /* ✅ Giữ chiều cao cố định để chữ không đẩy nút */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .promo-card .price {
@@ -82,6 +95,7 @@
   color: #00ffe7;
 }
 
+/* 🟢 NÚT GIỎ HÀNG */
 .promo-card button {
   background-color: #00ffe7;
   color: #000;
@@ -90,8 +104,14 @@
   border-radius: 6px;
   font-weight: bold;
   cursor: pointer;
+  margin-top: auto;        /* ✅ Đảm bảo nút dính đáy */
 }
 
+.promo-card button:hover {
+  background-color: #00e0c4;
+}
+
+/* 🔴 TAG GIẢM GIÁ */
 .discount-tag {
   position: absolute;
   top: 10px;
@@ -102,4 +122,10 @@
   padding: 4px 6px;
   border-radius: 4px;
   font-weight: bold;
+  z-index: 1;
+}
+
+/* ẨN */
+[hidden] {
+  display: none !important;
 }

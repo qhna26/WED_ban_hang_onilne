@@ -1,35 +1,192 @@
-.product-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 20px;
-  padding: 20px;
+body {
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
 }
-.product-card {
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 15px;
-  text-align: center;
-  transition: 0.3s;
+
+.product-detail-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 50px;
+  max-width: 1100px;
+  margin: 100px auto 0;
+  padding: 40px;
+  background: rgba(0,0,0,0.5);
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  z-index: 5;
 }
-.product-card:hover {
-  box-shadow: 0 0 10px #ccc;
+
+/* Hình ảnh */
+.product-image img {
+  width: 380px;
+  border-radius: 15px;
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.4);
 }
-.product-card img {
-  width: 100%;
-  height: 160px;
-  object-fit: cover;
-  border-radius: 10px;
+
+/* Thông tin */
+.product-info h2 {
+  font-size: 30px;
+  color: #00ffc8;
+  margin-bottom: 10px;
 }
-.product-card button {
-  background: #007bff;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 5px;
+
+.product-price {
+  font-size: 24px;
+  font-weight: bold;
+  color: #ff6161;
+  margin-bottom: 10px;
+}
+
+.product-desc {
+  color: #ccc;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+/* Màu sắc */
+.product-color label {
+  color: #00ffc8;
+  margin-right: 10px;
+}
+.color-options {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0 20px 0;
+}
+.color-circle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid #fff;
   cursor: pointer;
-  margin-top: 10px;
+  transition: transform 0.2s ease;
 }
-.product-card button:hover {
-  background: #0056b3;
+.color-circle:hover {
+  transform: scale(1.2);
+}
+.color-circle.selected {
+  border: 3px solid #00ffc8;
+}
+
+/* Size */
+.product-size {
+  margin-bottom: 20px;
+}
+.product-size label {
+  color: #00ffc8;
+  margin-right: 10px;
+}
+.product-size select {
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: #111;
+  color: #fff;
+  border: 2px solid #00ffc8;
+}
+
+/* Số lượng & nút */
+.product-action {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.product-action input {
+  width: 70px;
+  padding: 8px;
+  text-align: center;
+  border: 2px solid #00ffc8;
+  background: transparent;
+  color: #fff;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+/* Nút */
+#add-to-cart, #buy-now {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+#add-to-cart {
+  background: red;
+  color: #fff;
+}
+#add-to-cart:hover {
+  background: darkred;
+  transform: scale(1.05);
+}
+
+#buy-now {
+  background: #00ffc8;
+  color: #000;
+}
+#buy-now:hover {
+  background: #00d4aa;
+  transform: scale(1.05);
+}
+
+/* 🛒 Cart icon giống product_detail */
+.cart-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  bottom: 7px;
+  gap: 5px;
+  font-size: 17px;
+  color: #00ffe7;
+  text-decoration: none;
+}
+
+#cart-icon {
+  font-size: 24px;
+  transition: transform 0.2s ease;
+}
+
+#cart-count {
+  background: red;
+  color: white;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 50%;
+  position: absolute;
+  top: -8px;
+  right: -10px;
+}
+
+/* ✨ Fade-in hiệu ứng khi load sản phẩm */
+.fade-in {
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 🪄 Khi bấm Thêm vào giỏ hàng */
+.button-shake {
+  animation: shake 0.4s;
+}
+@keyframes shake {
+  0%,100% { transform: translate(0,0); }
+  25% { transform: translate(3px,0); }
+  50% { transform: translate(-3px,0); }
+  75% { transform: translate(3px,0); }
+}
+
+/* 🎈 Bounce icon giỏ hàng */
+.cart-bounce {
+  animation: bounce 0.6s;
+}
+@keyframes bounce {
+  0%,100% { transform: scale(1); }
+  30% { transform: scale(1.5); }
+  50% { transform: scale(0.9); }
 }

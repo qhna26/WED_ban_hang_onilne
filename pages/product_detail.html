@@ -1,33 +1,52 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trang Admin</title>
-  <link rel="stylesheet" href="../css/style_admin.css">
-</head>
-<body>
-  <canvas id="bgCanvas"></canvas>
+ <canvas id="bgCanvas"></canvas>
 
   <nav>
     <ul>
       <li><a href="tk.admin.html">Trang chủ</a></li>
       <li><a href="products.html">Sản phẩm</a></li>
-      <li><a href="product_detail.html">Chi tiết sản phẩm</a></li>
-      <li><a href="cart.html">Giỏ hàng</a></li>
+      <li><a href="product_detail.html" class="active">Chi tiết sản phẩm</a></li>
+      <li>
+        <a href="cart.html" class="cart-link">
+          <span id="cart-icon">🛒</span>
+          <span id="cart-count">0</span>
+        </a>
+      </li>
       <li><a href="checkout.html">Thanh toán</a></li>
       <li><button onclick="logout()">Đăng xuất</button></li>
-      <li class="role-menu">
-        <button title="Vai trò người dùng">
-          <span aria-hidden="true">&#128100;</span>
-          <span class="role-text" id="userRoleInNav"></span>
-        </button>
-      </li>
     </ul>
   </nav>
 
- 
-<script src="js/slider.js"></script>
-   <script src="js/auth.js"></script>
-</body>
-</html>
+  <div class="product-detail-container">
+    <div class="product-image">
+      <img id="product-img" src="" alt="Sản phẩm">
+    </div>
+    <div class="product-info">
+      <h2 id="product-name">Tên sản phẩm</h2>
+      <p class="product-price" id="product-price">0đ</p>
+      <p class="product-desc" id="product-desc">Mô tả sản phẩm...</p>
+
+      <div class="product-color">
+        <label>Màu sắc:</label>
+        <div id="color-options" class="color-options"></div>
+      </div>
+
+      <div class="product-size">
+        <label for="size">Chọn size:</label>
+        <select id="product-size">
+          <option value="M">M</option>
+          <option value="L">L</option>
+          <option value="XL">XL</option>
+        </select>
+      </div>
+
+      <div class="product-action">
+        <input type="number" id="product-qty" value="1" min="1">
+        <button id="add-to-cart">🛒 Thêm vào giỏ hàng</button>
+        <button id="buy-now">🛍️ Mua ngay</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/slider.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/product_detail.js"></script>

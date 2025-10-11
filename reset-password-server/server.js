@@ -22,7 +22,7 @@ let otpStore = {};
 
 //Hàm đọc file template rồi chèn OTP vào
 function getEmailTemplate(otp) {
-  const htmlPath = path.join(__dirname, "../template-email.html");
+  const htmlPath = path.join(__dirname, "../pages/template-email.html");
   let html = fs.readFileSync(htmlPath, "utf8");
   html = html.replace("{{OTP}}", otp);
   return html;

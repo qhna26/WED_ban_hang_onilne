@@ -1,97 +1,391 @@
 <section class="products">
-    <!-- 🔷 DANH MỤC 5 MÔN THỂ THAO -->
-    <section class="category-grid">
-      <h2 style="text-align:center; color:#00ffe7;">📂 Danh mục thể thao</h2>
-      <div class="category-list">
-        <div class="category-item">⚽ Đá banh</div>
-        <div class="category-item">🏸 Cầu lông</div>
-        <div class="category-item">🏊 Bơi</div>
-        <div class="category-item">🥒 Pickleball</div>
-        <div class="category-item">🏋️ Gym</div>
+  <!-- 🔷 DANH MỤC 5 MÔN THỂ THAO -->
+  <section class="category-grid">
+    <h2 style="text-align:center; color:#00ffe7;">📂 Danh mục thể thao</h2>
+    <div class="category-list">
+      <button class="category-item" data-filter="dabanh">⚽ Đá banh</button>
+      <button class="category-item" data-filter="aocaulong">🏸 Cầu lông</button>
+      <button class="category-item" data-filter="doboinam">🏊 Bơi</button>
+      <button class="category-item" data-filter="aopick">🥒 Pickleball</button>
+      <button class="category-item" data-filter="dungcu">🏋️ Gym</button>
+      <button class="category-item" data-filter="caulong">🏸 Vợt cầu lông</button>
+      <button class="category-item" data-filter="votpick">🏓 Vợt Pickleball</button>
+      <button class="category-item" data-filter="balopick">🎒 Balo Pickleball</button>
+    </div>
+  </section>
+
+  <!-- 🎉 GỢI Ý HÔM NAY -->
+  <section>
+    <h2 style="text-align:center; margin-top:40px; color:#00ffe7;">🎉 Gợi ý hôm nay</h2>
+    <div class="promo-grid">
+      <!-- Nhóm 1: aocaulong -->
+      <div class="promo-card aocaulong">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/aocaulong2.jpg" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>500,000 VNĐ</del> <strong>350,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
       </div>
-    </section>
-
-    <!-- 🎉 GỢI Ý HÔM NAY -->
-    <section>
-      <h2 style="text-align:center; margin-top:40px; color:#00ffe7;">🎉 Gợi ý hôm nay</h2>
-      <div class="promo-grid">
-        <!-- Anh tự đưa hình ảnh sản phẩm vào đây -->
-        <!-- Ví dụ mẫu -->
-        <div class="promo-card">
-          <span class="discount-tag">-30%</span>
-          <img src="link-anh-cua-anh" alt="Tên sản phẩm" />
-          <h3>Tên sản phẩm khuyến mãi</h3>
-          <p class="price"><del>Giá gốc</del> <strong>Giá khuyến mãi</strong></p>
-          <button>Thêm vào giỏ hàng</button>
-        </div>
-            <div class="promo-card">
-          <span class="discount-tag">-30%</span>
-          <img src="link-anh-cua-anh" alt="Tên sản phẩm" />
-          <h3>Tên sản phẩm khuyến mãi</h3>
-          <p class="price"><del>Giá gốc</del> <strong>Giá khuyến mãi</strong></p>
-          <button>Thêm vào giỏ hàng</button>
-        </div>
-            <div class="promo-card">
-          <span class="discount-tag">-30%</span>
-          <img src="link-anh-cua-anh" alt="Tên sản phẩm" />
-          <h3>Tên sản phẩm khuyến mãi</h3>
-          <p class="price"><del>Giá gốc</del> <strong>Giá khuyến mãi</strong></p>
-          <button>Thêm vào giỏ hàng</button>
-        </div>
-            <div class="promo-card">
-          <span class="discount-tag">-30%</span>
-          <img src="link-anh-cua-anh" alt="Tên sản phẩm" />
-          <h3>Tên sản phẩm khuyến mãi</h3>
-          <p class="price"><del>Giá gốc</del> <strong>Giá khuyến mãi</strong></p>
-          <button>Thêm vào giỏ hàng</button>
-        </div>
-            <div class="promo-card">
-          <span class="discount-tag">-30%</span>
-          <img src="link-anh-cua-anh" alt="Tên sản phẩm" />
-          <h3>Tên sản phẩm khuyến mãi</h3>
-          <p class="price"><del>Giá gốc</del> <strong>Giá khuyến mãi</strong></p>
-          <button>Thêm vào giỏ hàng</button>
-        </div>
-            <div class="promo-card">
-          <span class="discount-tag">-30%</span>
-          <img src="link-anh-cua-anh" alt="Tên sản phẩm" />
-          <h3>Tên sản phẩm khuyến mãi</h3>
-          <p class="price"><del>Giá gốc</del> <strong>Giá khuyến mãi</strong></p>
-          <button>Thêm vào giỏ hàng</button>
-        </div>
-            <div class="promo-card">
-          <span class="discount-tag">-30%</span>
-          <img src="link-anh-cua-anh" alt="Tên sản phẩm" />
-          <h3>Tên sản phẩm khuyến mãi</h3>
-          <p class="price"><del>Giá gốc</del> <strong>Giá khuyến mãi</strong></p>
-          <button>Thêm vào giỏ hàng</button>
-        </div>
-            <div class="promo-card">
-          <span class="discount-tag">-30%</span>
-          <img src="link-anh-cua-anh" alt="Tên sản phẩm" />
-          <h3>Tên sản phẩm khuyến mãi</h3>
-          <p class="price"><del>Giá gốc</del> <strong>Giá khuyến mãi</strong></p>
-          <button>Thêm vào giỏ hàng</button>
-        </div>
-            <div class="promo-card">
-          <span class="discount-tag">-30%</span>
-          <img src="link-anh-cua-anh" alt="Tên sản phẩm" />
-          <h3>Tên sản phẩm khuyến mãi</h3>
-          <p class="price"><del>Giá gốc</del> <strong>Giá khuyến mãi</strong></p>
-          <button>Thêm vào giỏ hàng</button>
-        </div>    <div class="promo-card">
-          <span class="discount-tag">-30%</span>
-          <img src="link-anh-cua-anh" alt="Tên sản phẩm" />
-          <h3>Tên sản phẩm khuyến mãi</h3>
-          <p class="price"><del>Giá gốc</del> <strong>Giá khuyến mãi</strong></p>
-          <button>Thêm vào giỏ hàng</button>
-        </div>
-        <!-- Nhân bản thêm nếu cần -->
+      <div class="promo-card aocaulong">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/aocaulong11.jpg" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>600,000 VNĐ</del> <strong>420,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
       </div>
-    </section>
+      <div class="promo-card aocaulong">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/aocaulong3.jpg" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>550,000 VNĐ</del> <strong>385,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
+      </div>
+      <div class="promo-card aocaulong">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/aocaulong4.jpg" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>520,000 VNĐ</del> <strong>364,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
+      </div>
+      <div class="promo-card aocaulong">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/aocaulong5.jpg" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>580,000 VNĐ</del> <strong>406,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
+      </div>
 
+      <!-- Nhóm 2: aopick -->
+      <div class="promo-card aopick">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/aopick.jpg" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>450,000 VNĐ</del> <strong>315,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
+      </div>
+      <div class="promo-card aopick">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/aopick2.jpg" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>470,000 VNĐ</del> <strong>329,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
+      </div>
+      <div class="promo-card aopick">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/aopick3.jpg" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>490,000 VNĐ</del> <strong>343,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
+      </div>
+      <div class="promo-card aopick">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/aopick4.jpg" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>460,000 VNĐ</del> <strong>322,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
+      </div>
+      <div class="promo-card aopick">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/aopick5.webp" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>480,000 VNĐ</del> <strong>336,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
+      </div>
 
+      <!-- Nhóm 3: balocaulong -->
+      <div class="promo-card balocaulong">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/balocaulong1.jpg" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>700,000 VNĐ</del> <strong>490,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
+      </div>
+      <div class="promo-card balocaulong">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/balocaulong2.jpg" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>720,000 VNĐ</del> <strong>504,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
+      </div>
+      <div class="promo-card balocaulong">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/balocaulong3.jpg" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>680,000 VNĐ</del> <strong>476,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
+      </div>
+      <div class="promo-card balocaulong">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/balocaulong4.jpg" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>710,000 VNĐ</del> <strong>497,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
+      </div>
+      <div class="promo-card balocaulong">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/balocaulong5.jpg" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>690,000 VNĐ</del> <strong>483,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
+      </div>
+
+      <!-- Nhóm 4: doboinam -->
+      <div class="promo-card doboinam">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/doboinam.jpg" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>400,000 VNĐ</del> <strong>280,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
+      </div>
+      <div class="promo-card doboinam">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/doboinam1.jpg" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>420,000 VNĐ</del> <strong>294,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
+      </div>
+      <div class="promo-card doboinam">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/doboinam2.jpg" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>430,000 VNĐ</del> <strong>301,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
+      </div>
+      <div class="promo-card doboinam">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/doboinu1.webp" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>450,000 VNĐ</del> <strong>315,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
+      </div>
+      <div class="promo-card doboinam">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/kinhboi.jpg" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>300,000 VNĐ</del> <strong>210,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
+      </div>
+
+      <!-- Nhóm 5: caulong -->
+      <div class="promo-card caulong">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/caulong12.jpg" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>500,000 VNĐ</del> <strong>350,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
+      </div>
+      <div class="promo-card caulong">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/caulong13.jpg" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>520,000 VNĐ</del> <strong>364,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
+      </div>
+      <div class="promo-card caulong">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/caulong14.jpg" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>550,000 VNĐ</del> <strong>385,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
+      </div>
+      <div class="promo-card caulong">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/caulong15.jpg" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>580,000 VNĐ</del> <strong>406,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
+      </div>
+      <div class="promo-card caulong">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/caulong16.jpg" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>600,000 VNĐ</del> <strong>420,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
+      </div>
+
+      <!-- Nhóm 6: votpick -->
+      <div class="promo-card votpick">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/votpick1.jpg" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>400,000 VNĐ</del> <strong>280,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
+      </div>
+      <div class="promo-card votpick">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/votpick2.jpg" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>420,000 VNĐ</del> <strong>294,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
+      </div>
+      <div class="promo-card votpick">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/votpick3.jpg" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>430,000 VNĐ</del> <strong>301,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
+      </div>
+      <div class="promo-card votpick">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/votpick4.jpg" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>450,000 VNĐ</del> <strong>315,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
+      </div>
+      <div class="promo-card votpick">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/votpick5.jpg" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>480,000 VNĐ</del> <strong>336,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
+      </div>
+
+      <!-- Nhóm 7: balopick -->
+      <div class="promo-card balopick">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/balopick1.jpg" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>450,000 VNĐ</del> <strong>315,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
+      </div>
+      <div class="promo-card balopick">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/balopick2.jpg" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>470,000 VNĐ</del> <strong>329,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
+      </div>
+      <div class="promo-card balopick">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/balopick3.jpg" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>490,000 VNĐ</del> <strong>343,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
+      </div>
+      <div class="promo-card balopick">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/balopick4.jpg" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>460,000 VNĐ</del> <strong>322,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
+      </div>
+      <div class="promo-card balopick">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/balopick5.jpg" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>480,000 VNĐ</del> <strong>336,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
+      </div>
+
+      <!-- nhóm gym -->
+       <div class="promo-card dungcu">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/dungcu.jpg" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>480,000 VNĐ</del> <strong>336,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
+      </div>
+      <div class="promo-card dungcu">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/dungcu1.jpg" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>480,000 VNĐ</del> <strong>336,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
+      </div>
+      <div class="promo-card dungcu">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/dungcu2.jpg" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>480,000 VNĐ</del> <strong>336,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
+      </div>
+      <div class="promo-card dungcu">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/dungcu3.jpg" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>480,000 VNĐ</del> <strong>336,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
+      </div>
+      <div class="promo-card dungcu">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/dungcu4.jpg" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>480,000 VNĐ</del> <strong>336,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
+      </div>
+      
+      <!-- nhóm đá banh -->
+       <div class="promo-card dabanh">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/ao.jpg" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>480,000 VNĐ</del> <strong>336,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
+      </div>
+      <div class="promo-card dabanh">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/ao1.jpg" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>480,000 VNĐ</del> <strong>336,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
+      </div>
+      <div class="promo-card dabanh">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/ao2.jpg" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>480,000 VNĐ</del> <strong>336,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
+      </div>
+      <div class="promo-card dabanh">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/ao3.jpg" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>480,000 VNĐ</del> <strong>336,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
+      </div>
+      <div class="promo-card dabanh">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/ao4.jpg" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>480,000 VNĐ</del> <strong>336,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
+      </div>
+      <div class="promo-card dabanh">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/giay.jpg" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>480,000 VNĐ</del> <strong>336,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
+      </div>
+      <div class="promo-card dabanh">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/giay1.jpg" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>480,000 VNĐ</del> <strong>336,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
+      </div>
+      <div class="promo-card dabanh">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/giay2.jpg" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>480,000 VNĐ</del> <strong>336,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
+      </div>
+      <div class="promo-card dabanh">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/giay3.jpg" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>480,000 VNĐ</del> <strong>336,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
+      </div>
+      <div class="promo-card dabanh">
+        <span class="discount-tag">-30%</span>
+        <img src="../images/giay4.jpg" alt="Tên sản phẩm" />
+        <h3>Tên sản phẩm khuyến mãi</h3>
+        <p class="price"><del>480,000 VNĐ</del> <strong>336,000 VNĐ</strong></p>
+        <button>Thêm vào giỏ hàng</button>
+      </div>
+    </div>
+  </section>
 </section>
-  <script src="js/slider.js"></script>
-  <script src="js/auth.js"></script>
-  <script src="js/app.js"></script>
+

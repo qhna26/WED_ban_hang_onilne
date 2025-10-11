@@ -1,92 +1,109 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const form = document.getElementById("registerForm");
-  const message = document.getElementById("registerMessage");
+document.addEventListener('DOMContentLoaded', () => {
+  const toggle = document.getElementById('togglePassword');
+  const pass = document.getElementById('password');
+  const confirmPass = document.getElementById('confirmPassword');
+  const sendOtpBtn = document.getElementById('sendOtpBtn');
+  const otpSection = document.getElementById('otpSection');
+  const registerForm = document.getElementById('registerForm');
+  const msg = document.getElementById('registerMessage');
+  const resetAccountsBtn = document.getElementById('resetAccountsBtn');
 
-  let step = 1; // bước 1: đăng ký, bước 2: nhập OTP
-  let email = "";
-  let password = "";
+  let tempUser = null;
 
-  form.addEventListener("submit", async function (e) {
-    e.preventDefault();
+  // 👁 Hiện / ẩn mật khẩu
+  toggle.addEventListener('change', () => {
+    const type = toggle.checked ? 'text' : 'password';
+    pass.type = type;
+    confirmPass.type = type;
+  });
 
-    // Bước 1: gọi API /register
-    if (step === 1) {
-      const username = document.getElementById("reg-username").value.trim();
-      password = document.getElementById("reg-password").value.trim();
-      email = document.getElementById("reg-email").value.trim();
+  // 📨 Gửi OTP
+  sendOtpBtn.addEventListener('click', async () => {
+    const fullname = document.getElementById('fullname').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const password = pass.value.trim();
+    const confirmPassword = confirmPass.value.trim();
 
-      if (!username || !password || !email) {
-        message.textContent = "Vui lòng nhập đầy đủ thông tin!";
-        return;
-      }
-
-      try {
-        const res = await fetch("http://127.0.0.1:3000/register", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password }),
-        });
-
-        const data = await res.json();
-        if (data.status === "ok") {
-  message.textContent = `Mã OTP đã được gửi đến email: ${email}`;
-
-  // Chỉ thêm input OTP nếu chưa tồn tại
-  if (!document.getElementById("reg-otp")) {
-    const otpLabel = document.createElement("label");
-    otpLabel.setAttribute("for", "reg-otp");
-    otpLabel.textContent = "Nhập mã OTP:";
-
-    const otpInput = document.createElement("input");
-    otpInput.type = "text";
-    otpInput.id = "reg-otp";
-    otpInput.placeholder = "Nhập mã OTP";
-    otpInput.required = true;
-
-    form.insertBefore(otpLabel, form.querySelector("button"));
-    form.insertBefore(otpInput, form.querySelector("button"));
-  }
-
-  step = 2;
-
-        } else {
-          message.textContent = "Đăng ký thất bại: " + data.message;
-        }
-      } catch (err) {
-        console.error(err);
-        message.textContent = "Lỗi kết nối server!";
-      }
+    if (!fullname || !email || !password || !confirmPassword) {
+      showMessage('Vui lòng nhập đầy đủ thông tin!', 'red');
+      return;
+    }
+    if (password !== confirmPassword) {
+      showMessage('Mật khẩu xác nhận không khớp!', 'red');
+      return;
     }
 
-    // Bước 2: gọi API /verify
-    else if (step === 2) {
-      const otp = document.getElementById("reg-otp").value.trim();
-      if (!otp) {
-        message.textContent = "Vui lòng nhập OTP!";
-        return;
-      }
+    // ❌ Kiểm tra trùng tài khoản
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    const existed = users.some(u => u.email === email);
+    if (existed) {
+      showMessage('Email này đã được đăng ký!', 'red');
+      return;
+    }
 
-      try {
-        const res = await fetch("http://127.0.0.1:3000/verify", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, otp }),
-        });
-
-        const data = await res.json();
-        if (data.status === "ok") {
-          message.textContent = " Xác thực thành công! Chuyển đến trang đăng nhập";
-          message.style.color = "limegreen";
-          setTimeout(() => {
-            window.location.href = "login.html";
-          }, 2000);
-        } else {
-          message.textContent = " Sai OTP hoặc hết hạn.";
-        }
-      } catch (err) {
-        console.error(err);
-        message.textContent = "Lỗi kết nối server!";
+    try {
+      const res = await fetch('http://127.0.0.1:4000/forgot-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+      const data = await res.json();
+      if (data.status === 'ok') {
+        tempUser = { fullname, email, password };
+        showMessage('✅ OTP đã được gửi đến email. Vui lòng kiểm tra hộp thư.', 'green');
+        otpSection.style.display = 'block';
+      } else {
+        showMessage('Gửi OTP thất bại: ' + data.message, 'red');
       }
+    } catch (err) {
+      console.error(err);
+      showMessage('Không thể kết nối tới server gửi OTP!', 'red');
     }
   });
+
+  // 📝 Xác nhận OTP & lưu tài khoản
+  registerForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const otp = document.getElementById('otpInput').value.trim();
+    if (!tempUser) {
+      showMessage('Bạn cần gửi OTP trước!', 'red');
+      return;
+    }
+    if (!otp) {
+      showMessage('Vui lòng nhập OTP!', 'red');
+      return;
+    }
+
+    try {
+      const res = await fetch('http://127.0.0.1:4000/verify-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: tempUser.email, otp }),
+      });
+      const data = await res.json();
+      if (data.status === 'ok') {
+        const users = JSON.parse(localStorage.getItem('users') || '[]');
+        users.push(tempUser);
+        localStorage.setItem('users', JSON.stringify(users));
+        showMessage('🎉 Đăng ký thành công! Đang chuyển hướng...', 'green');
+        setTimeout(() => window.location.href = 'login.html', 1500);
+      } else {
+        showMessage(data.message, 'red');
+      }
+    } catch (err) {
+      console.error(err);
+      showMessage('Không thể xác thực OTP!', 'red');
+    }
+  });
+
+  // 🧹 Xóa tài khoản test
+  resetAccountsBtn.addEventListener('click', () => {
+    localStorage.removeItem('users');
+    alert('Đã xóa toàn bộ tài khoản test ✅');
+  });
+
+  function showMessage(text, color) {
+    msg.textContent = text;
+    msg.style.color = color;
+  }
 });

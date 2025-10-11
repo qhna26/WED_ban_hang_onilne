@@ -1,21 +1,136 @@
-#orderSummary {
-  width: 80%;
-  margin: 20px auto;
-  padding: 15px;
-  background: #fff;
-  border-radius: 8px;
-  border: 1px solid #ccc;
+.checkout-container {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 30px;
+  max-width: 800px;
+  margin: 60px auto;
+  box-shadow: 0 0 20px rgba(0,255,231,0.3);
+  backdrop-filter: blur(8px);
+  color: #fff;
 }
-.checkout-actions {
+
+.checkout-container h2 {
   text-align: center;
-  margin-top: 20px;
+  color: #00ffe7;
+  margin-bottom: 25px;
 }
-button {
+
+#checkout-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.checkout-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(0,0,0,0.3);
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,255,231,0.2);
+}
+
+.checkout-item img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-right: 15px;
+}
+
+.item-info {
+  flex: 1;
+}
+
+.item-info h4 {
+  margin: 0;
+  color: #00ffe7;
+}
+
+.item-info p {
+  margin: 4px 0;
+  font-size: 14px;
+}
+
+#checkout-total {
+  text-align: right;
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #00ffe7;
+}
+
+.checkout-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.confirm-btn {
+  background: red;
+  color: white;
   padding: 10px 18px;
-  margin: 5px;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.confirm-btn:hover {
+  background: darkred;
+  transform: scale(1.05);
+}
+
+.cancel-btn {
+  background: #555;
+  color: white;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
   cursor: pointer;
 }
-#confirmCheckout { background: #28a745; color: white; }
-#cancelCheckout { background: #dc3545; color: white; }
+
+.cancel-btn:hover {
+  background: #777;
+}
+/* 🛒 Cart icon giống product_detail */
+.cart-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  bottom: 7px;
+  gap: 5px;
+  font-size: 18px;
+  color: #00ffe7;
+  text-decoration: none;
+}
+
+#cart-icon {
+  font-size: 24px;
+  transition: transform 0.2s ease;
+}
+
+#cart-count {
+  background: red;
+  color: white;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 50%;
+  position: absolute;
+  top: -8px;
+  right: -10px;
+}
+
+.cart-bounce {
+  animation: bounce 0.6s;
+}
+
+@keyframes bounce {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.5); }
+  50% { transform: scale(0.9); }
+  100% { transform: scale(1); }
+}

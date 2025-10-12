@@ -1,119 +1,104 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const cartItemsContainer = document.getElementById("cart-items");
+  const CART_KEY = "cart";
+  const cartItemsEl = document.getElementById("cart-items");
   const subtotalEl = document.getElementById("subtotal");
-  const totalEl = document.getElementById("cart-total");
   const discountEl = document.getElementById("discount");
-  const cartCountEl = document.getElementById("cart-count");
+  const totalEl = document.getElementById("cart-total");
   const discountMsg = document.getElementById("discount-msg");
 
-  let discountValue = 0; // %
-
   function getCart() {
-    return JSON.parse(localStorage.getItem("cart")) || [];
+    return JSON.parse(localStorage.getItem(CART_KEY)) || [];
   }
-
-  function saveCart(cart) {
-    localStorage.setItem("cart", JSON.stringify(cart));
+  function saveCart(c) {
+    localStorage.setItem(CART_KEY, JSON.stringify(c));
   }
 
   function updateCartCount() {
     const cart = getCart();
-    const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
-    cartCountEl.textContent = totalQty;
-  }
-
-  function updateCartTotal() {
-    const cart = getCart();
-    const subtotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
-    const discountAmount = subtotal * (discountValue / 100);
-    const total = subtotal - discountAmount;
-
-    subtotalEl.textContent = subtotal.toLocaleString() + " đ";
-    discountEl.textContent = discountAmount > 0 ? "-" + discountAmount.toLocaleString() + " đ" : "0 đ";
-    totalEl.textContent = total.toLocaleString() + " đ";
+    const total = cart.reduce((s, i) => s + i.qty, 0);
+    const el = document.getElementById("cart-count");
+    if (el) el.textContent = total;
   }
 
   function renderCart() {
     const cart = getCart();
-    cartItemsContainer.innerHTML = "";
+    cartItemsEl.innerHTML = "";
 
     if (cart.length === 0) {
-      cartItemsContainer.innerHTML = `<p>🛒 Giỏ hàng trống</p>`;
+      cartItemsEl.innerHTML = "<p>🛒 Giỏ hàng trống</p>";
+      subtotalEl.textContent = "0 đ";
+      totalEl.textContent = "0 đ";
       updateCartCount();
-      updateCartTotal();
       return;
     }
 
-    cart.forEach(item => {
+    cart.forEach((item, i) => {
       const div = document.createElement("div");
       div.classList.add("cart-item");
       div.innerHTML = `
         <img src="${item.image}" alt="${item.name}">
         <div class="item-info">
           <h3>${item.name}</h3>
-          <p>${item.color ? "Màu: " + item.color + " | " : ""} Size: ${item.size || "M"}</p>
           <p>${item.price.toLocaleString()} đ</p>
+          <p>SL: 
+            <button class="minus" data-i="${i}">-</button>
+            <span>${item.qty}</span>
+            <button class="plus" data-i="${i}">+</button>
+          </p>
+          <button class="remove" data-i="${i}">🗑️</button>
         </div>
-        <div class="item-qty">
-          <button class="decrease">-</button>
-          <span>${item.qty}</span>
-          <button class="increase">+</button>
-        </div>
-        <button class="remove-item">🗑️</button>
       `;
-
-      div.querySelector(".decrease").addEventListener("click", () => {
-        if (item.qty > 1) item.qty--;
-        else cart.splice(cart.indexOf(item), 1);
-        saveCart(cart);
-        renderCart();
-      });
-
-      div.querySelector(".increase").addEventListener("click", () => {
-        item.qty++;
-        saveCart(cart);
-        renderCart();
-      });
-
-      div.querySelector(".remove-item").addEventListener("click", () => {
-        cart.splice(cart.indexOf(item), 1);
-        saveCart(cart);
-        renderCart();
-      });
-
-      cartItemsContainer.appendChild(div);
+      cartItemsEl.appendChild(div);
     });
 
+    attachEvents();
+    updateTotal();
     updateCartCount();
-    updateCartTotal();
   }
 
-  // 🔖 Áp dụng mã giảm giá
-  document.getElementById("apply-discount").addEventListener("click", () => {
-    const code = document.getElementById("discount-code").value.trim().toUpperCase();
-    const validCodes = {
-      "GIAM10": 10,
-      "SALE20": 20,
-      "VIP30": 30
-    };
+  function attachEvents() {
+    document.querySelectorAll(".plus").forEach(btn =>
+      btn.addEventListener("click", () => {
+        const i = btn.dataset.i;
+        const cart = getCart();
+        cart[i].qty++;
+        saveCart(cart);
+        renderCart();
+      })
+    );
 
-    if (validCodes[code]) {
-      discountValue = validCodes[code];
-      discountMsg.textContent = `✅ Áp dụng mã thành công! Giảm ${discountValue}%`;
-    } else if (code === "") {
-      discountMsg.textContent = "⚠️ Vui lòng nhập mã giảm giá.";
-      discountValue = 0;
-    } else {
-      discountMsg.textContent = "❌ Mã không hợp lệ.";
-      discountValue = 0;
-    }
+    document.querySelectorAll(".minus").forEach(btn =>
+      btn.addEventListener("click", () => {
+        const i = btn.dataset.i;
+        let cart = getCart();
+        if (cart[i].qty > 1) cart[i].qty--;
+        else cart.splice(i, 1);
+        saveCart(cart);
+        renderCart();
+      })
+    );
 
-    updateCartTotal();
-  });
+    document.querySelectorAll(".remove").forEach(btn =>
+      btn.addEventListener("click", () => {
+        const i = btn.dataset.i;
+        let cart = getCart();
+        cart.splice(i, 1);
+        saveCart(cart);
+        renderCart();
+      })
+    );
+  }
+
+  function updateTotal() {
+    const cart = getCart();
+    const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+    subtotalEl.textContent = subtotal.toLocaleString() + " đ";
+    totalEl.textContent = subtotal.toLocaleString() + " đ";
+  }
 
   // 🧹 Xóa giỏ hàng
   document.getElementById("clear-cart").addEventListener("click", () => {
-    localStorage.removeItem("cart");
+    localStorage.removeItem(CART_KEY);
     renderCart();
   });
 
@@ -121,22 +106,28 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("checkout-btn").addEventListener("click", () => {
     const cart = getCart();
     if (cart.length === 0) return alert("Giỏ hàng trống!");
-    window.location.href = "checkout.html";
+    alert("Thanh toán thành công!");
+    localStorage.removeItem(CART_KEY);
+    renderCart();
   });
 
-  // 👤 Hiển thị thông tin khách hàng
-  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-  if (currentUser) {
-    document.getElementById("cust-name").textContent = currentUser.name || "Không rõ";
-    document.getElementById("cust-email").textContent = currentUser.email || "Không rõ";
-  }
-
-  // 🚀 Khởi chạy
   renderCart();
-
-  // 📤 Đăng xuất
-  window.logout = function() {
-    localStorage.removeItem("currentUser");
-    window.location.href = "login.html";
-  };
 });
+
+function addToCart(product) {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const exist = cart.find(item => item.name === product.name && item.size === product.size);
+  if (exist) {
+    exist.quantity += product.quantity;
+  } else {
+    cart.push(product);
+  }
+  localStorage.setItem("cart", JSON.stringify(cart));
+}
+
+function updateCartCount() {
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const total = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+  const el = document.getElementById("cart-count");
+  if (el) el.textContent = total;
+}

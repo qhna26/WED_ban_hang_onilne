@@ -39,9 +39,15 @@ document.addEventListener('DOMContentLoaded', () => {
     loginMsg.style.color = "red";
   });
 
+
   function handleLoginSuccess(username, role){
     sessionStorage.setItem("userRole", role);
     sessionStorage.setItem("username", username);
+    const storedUsers = JSON.parse(localStorage.getItem("users") || "[]");
+  const userData = storedUsers.find(u => u.username === username || u.email === username);
+
+  const userEmail = userData ? userData.email : "";
+  localStorage.setItem("currentUser", JSON.stringify({ name: username, email: userEmail }));
 
     if (role === "ADMIN") {
       window.location.href = "../tk.admin.html";
@@ -60,6 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 });
+
 
 // ❌ Chặn chuột phải
 document.addEventListener('contextmenu', e => e.preventDefault());

@@ -1,42 +1,42 @@
- <canvas id="bgCanvas"></canvas>
-  <!-- 🛒 Giỏ hàng -->
-  <div class="cart-wrapper">
-    <div class="cart-left">
-      <h1>🛍 Giỏ hàng của bạn</h1>
-      <div id="cart-items" class="cart-items"></div>
-    </div>
+<!-- cart.html (bản đã chỉnh sửa) -->
+<canvas id="bgCanvas"></canvas>
 
-    <div class="cart-right">
-      <h3>Thông tin đơn hàng</h3>
-      <div class="cart-summary">
-        <div class="customer-info">
-          <h4>👤 Khách hàng</h4>
-          <p><strong>Tên:</strong> <span id="cust-name">—</span></p>
-          <p><strong>Email:</strong> <span id="cust-email">—</span></p>
-          <hr>
-        </div>
-
-        <div class="discount-box">
-          <label for="discount-code">Mã giảm giá:</label>
-          <div class="discount-input">
-            <input type="text" id="discount-code" placeholder="Nhập mã giảm giá...">
-            <button id="apply-discount">Áp dụng</button>
-          </div>
-          <p id="discount-msg"></p>
-        </div>
-
-        <p><strong>Tạm tính:</strong> <span id="subtotal">0 đ</span></p>
-        <p><strong>Phí giao hàng:</strong> <span id="shipping">Miễn phí</span></p>
-        <p><strong>Giảm giá:</strong> <span id="discount">0 đ</span></p>
-        <hr>
-        <p class="total"><strong>Tổng cộng:</strong> <span id="cart-total">0 đ</span></p>
-
-        <button id="checkout-btn" class="checkout-btn">Thanh toán</button>
-        <button id="clear-cart" class="clear-btn">🗑️ Xóa giỏ hàng</button>
-      </div>
-    </div>
+<div class="cart-wrapper">
+  <div class="cart-left">
+    <h1>🛍 Giỏ hàng của bạn</h1>
+    <div id="cart-items" class="cart-items"></div>
   </div>
 
-  <script src="js/auth.js"></script>
-  <script src="js/slider.js"></script>
-  <script src="js/cart.js"></script>
+  <div class="cart-right">
+    <h3>Thông tin đơn hàng</h3>
+    <div class="cart-summary">
+      <div class="customer-info">
+        <h4>👤 Khách hàng</h4>
+        <p><strong>Tên:</strong> <span id="cust-name">—</span></p>
+        <p><strong>Email:</strong> <span id="cust-email">—</span></p>
+        <hr>
+      </div>
+
+      <div class="discount-box">
+        <label for="discount-code">Mã giảm giá:</label>
+        <div class="discount-input">
+          <input type="text" id="discount-code" placeholder="Nhập mã giảm giá...">
+          <button id="apply-discount">Áp dụng</button>
+        </div>
+        <p id="discount-msg"></p>
+      </div>
+
+      <p><strong>Tạm tính:</strong> <span id="subtotal">0 đ</span></p>
+      <p><strong>Phí giao hàng:</strong> <span id="shipping">Miễn phí</span></p>
+      <p><strong>Giảm giá:</strong> <span id="discount">0 đ</span></p>
+      <hr>
+      <p class="total"><strong>Tổng cộng:</strong> <span id="cart-total">0 đ</span></p>
+
+      <button id="checkout-btn" class="checkout-btn">Thanh toán</button>
+      <button id="clear-cart" class="clear-btn">🗑️ Xóa giỏ hàng</button>
+    </div>
+  </div>
+</div>
+
+
+

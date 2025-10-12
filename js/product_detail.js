@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // 🛍 Mua ngay
   document.getElementById('buy-now').addEventListener('click', () => {
     document.getElementById('add-to-cart').click();
-    window.location.href = 'checkout.html';
+    window.location.href = 'pages/checkout.html';
   });
 
   updateCartCount();
@@ -52,3 +52,35 @@ function updateCartCount() {
   const total = cart.reduce((s, i) => s + i.qty, 0);
   document.getElementById('cart-count').textContent = total;
 }
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const addBtn = document.getElementById("add-to-cart");
+  const qtyInput = document.getElementById("product-qty");
+
+  const product = JSON.parse(localStorage.getItem("selectedProduct")) || {};
+
+  if (addBtn) {
+    addBtn.addEventListener("click", () => {
+      const qty = parseInt(qtyInput.value) || 1;
+      const newItem = {
+        id: product.id,
+        name: product.name,
+        price: parseInt(product.price),
+        image: product.image,
+        desc: product.desc,
+        size: document.getElementById("product-size").value,
+        color: "Mặc định",
+        qty
+      };
+
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const exist = cart.find(
+        i => i.id === newItem.id && i.size === newItem.size
+      );
+      if (exist) exist.qty += qty;
+      else cart.push(newItem);
+      localStorage.setItem("cart", JSON.stringify(cart));
+    });
+  }
+});

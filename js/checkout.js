@@ -49,15 +49,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
   totalEl.textContent = `Tổng tiền: ${totalPrice.toLocaleString()} đ`;
 
-  // 👉 Nút xác nhận
   confirmBtn.addEventListener("click", () => {
-    alert("✅ Thanh toán thành công! Cảm ơn bạn đã mua hàng.");
+    const order = {
+      id: "DH" + Date.now(),
+      items: cart,
+      total: totalPrice,
+      date: new Date().toLocaleString("vi-VN"),
+    };
+
+    const orders = JSON.parse(localStorage.getItem("orders")) || [];
+    orders.push(order);
+    localStorage.setItem("orders", JSON.stringify(orders));
+
+    alert("✅ Thanh toán thành công! Đơn hàng của bạn đã được lưu trong lịch sử.");
+
     localStorage.removeItem("cart");
-    window.location.href = "products.html";
+    window.location.href = "orders.html";
   });
 
-  // 👉 Nút hủy
+  // 👉 Hủy thanh toán
   cancelBtn.addEventListener("click", () => {
     window.location.href = "cart.html";
   });
+  
 });

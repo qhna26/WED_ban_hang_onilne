@@ -1,0 +1,121 @@
+<style>
+   body {
+  font-family: "Segoe UI", sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #001f3f, #04002a, #00112e);
+  color: #fff;
+}
+
+h2 {
+  text-align: center;
+  margin-top: 30px;
+  color: #00fff0;
+  text-shadow: 0 0 8px rgba(0, 255, 255, 0.4);
+}
+
+.orders-container {
+  width: 90%;
+  max-width: 900px;
+  margin: 30px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.order {
+  background: rgba(0, 0, 30, 0.7);
+  border-radius: 16px;
+  box-shadow: 0 0 12px rgba(0, 255, 255, 0.2);
+  padding: 20px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(0, 255, 255, 0.15);
+}
+
+.order:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 18px rgba(0, 255, 255, 0.3);
+}
+
+.order h3 {
+  margin: 0;
+  color: #00fff0;
+  font-size: 1.2rem;
+}
+
+.order p {
+  margin: 6px 0;
+  color: #ccc;
+}
+
+details summary {
+  cursor: pointer;
+  font-weight: bold;
+  color: #00e0ff;
+  margin-top: 10px;
+  transition: color 0.3s;
+}
+details summary:hover {
+  color: #00fff0;
+}
+
+.order-item {
+  display: flex;
+  align-items: center;
+  margin: 8px 0;
+  gap: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 5px;
+}
+
+.order-item img {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 1px solid rgba(0, 255, 255, 0.2);
+}
+
+.no-orders {
+  text-align: center;
+  color: #aaa;
+  margin-top: 40px;
+  font-size: 1.1rem;
+}
+
+  </style>
+</head>
+<body>
+  <h2>📜 Lịch sử giao dịch của bạn</h2>
+  <div class="orders-container" id="order-list"></div>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const orderList = document.getElementById("order-list");
+    const orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+    if (orders.length === 0) {
+      orderList.innerHTML = "<p class='no-orders'>Chưa có giao dịch nào.</p>";
+      return;
+    }
+
+    orderList.innerHTML = orders.map(o => `
+      <div class="order">
+        <h3>🧾 Mã đơn: ${o.id}</h3>
+        <p><strong>🕒 Ngày thanh toán:</strong> ${o.date}</p>
+        <p><strong>💰 Tổng tiền:</strong> ${o.total.toLocaleString()} đ</p>
+        <details>
+          <summary>📦 Xem chi tiết sản phẩm</summary>
+          ${o.items.map(i => `
+            <div class="order-item">
+              <img src="${i.image}" alt="${i.name}">
+              <span>${i.name} x ${i.qty} = ${(i.price * i.qty).toLocaleString()} đ</span>
+            </div>
+          `).join("")}
+        </details>
+      </div>
+    `).join("");
+  });
+  </script>

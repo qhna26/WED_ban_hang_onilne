@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="css/style_nv,kh.css">
   <link rel="stylesheet" href="css/products.css">
   <link rel="stylesheet" href="css/cart.css">
+  <link rel="stylesheet" href="css/product_detail.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
@@ -17,7 +18,13 @@
       <ul>
         <li><a href="#" id="homeLink">Trang chủ</a></li>
         <li><a href="#" id="productsLink">Sản phẩm</a></li>
-        <li><a href="#" id="cartLink">Giỏ hàng</a></li>
+        <li>
+        <li><a href="#" id="ordersLink">Lịch sử giao dịch</a></li>
+                <a href="#" id="cartLink">
+          <span id="cart-icon">🛒</span>
+          <span id="cart-count">0</span>
+        </a>
+      </li>
         <li id="logoutItem" style="display:none;"><button onclick="logout()">Đăng xuất</button></li>
         <li class="role-menu">
           <button id="userInfoBtn" title="Vai trò người dùng">
@@ -59,45 +66,54 @@
     </div>
   </footer>
 
+  
   <script src="js/checkRole.js"></script>
   <script src="js/auth.js"></script> 
   <script src="js/slider.js"></script>
   <script src="js/scroll-animate.js"></script>
   <script src="js/product.js"></script>
+  <script src="js/checkout.js"></script>
   
   <script>
     const contentArea = document.getElementById("content-area");
 
-    function loadPage(page) {
-      contentArea.classList.remove('transition-in');
-      contentArea.classList.add('transition-out');
-      
-      setTimeout(() => {
-        cleanupSlider();
-        cleanupScrollAnimation();
+function loadPage(page) {
+  contentArea.classList.remove('transition-in');
+  contentArea.classList.add('transition-out');
+  
+  setTimeout(() => {
+    cleanupSlider();
+    cleanupScrollAnimation();
 
-        fetch(`pages/${page}`)
-          .then(res => res.text())
-          .then(html => {
-            contentArea.innerHTML = html;
-            if (page === "products.html") {
-      initProductFilter(); // <-- Gọi hàm khi load products
-    }
-            initSlider();
-            initScrollAnimation();
+    fetch(`pages/${page}`)
+      .then(res => res.text())
+      .then(html => {
+        contentArea.innerHTML = html;
 
-            setTimeout(() => {
-              contentArea.classList.remove('transition-out');
-              contentArea.classList.add('transition-in');
-            }, 50);
-          })
-          .catch(err => {
-            console.error("Lỗi tải trang:", err);
-            contentArea.classList.remove('transition-out');
-            contentArea.classList.add('transition-in');
-          });
-      }, 600);
-    }
+        if (page === "products.html") {
+          initProductFilter();
+          initProductClick();
+        }
+
+        if (page === "product_detail.html") {
+          setTimeout(() => initProductDetail(), 100);
+        }
+
+        initSlider();
+        initScrollAnimation();
+
+        setTimeout(() => {
+          contentArea.classList.remove('transition-out');
+          contentArea.classList.add('transition-in');
+        }, 50);
+      })
+      .catch(err => {
+        console.error("Lỗi tải trang:", err);
+        contentArea.classList.remove('transition-out');
+        contentArea.classList.add('transition-in');
+      });
+  }, 600);
+}
 
     document.addEventListener("DOMContentLoaded", () => {
       contentArea.classList.add('transition-in');
@@ -122,6 +138,11 @@
         e.preventDefault();
         loadPage("cart.html");
       });
+      document.getElementById("ordersLink").addEventListener("click", (e) => {
+        e.preventDefault();
+        loadPage("orders.html");
+      });
+      
 
       // Sửa nút userInfoBtn để redirect tới login.html
       const userInfoBtn = document.getElementById("userInfoBtn");
@@ -148,5 +169,7 @@ function logout() {
 }
 
   </script>
+
+  
 </body>
 </html>
